@@ -10,7 +10,7 @@ const formatDate = (dateStr) => {
   });
 };
 
-const ProjectCardComponents = ({
+const ProjectCard = ({
   image,
   title,
   description,
@@ -37,7 +37,7 @@ const ProjectCardComponents = ({
         </h3>
 
         <p className="text-gray-300 text-sm mb-2 line-clamp-3">{description}</p>
-        <p className="text-orange-500 text-xs font-mono mb-4">{techStack}</p>
+        <p className="text-orange-300 text-xs font-mono mb-4">{techStack}</p>
 
         {/* Date Info */}
         <div className="text-gray-400 text-xs space-y-1 mb-5">
@@ -85,4 +85,4 @@ const ProjectCardComponents = ({
   );
 };
 
-export default ProjectCardComponents;
+export default ProjectCard
