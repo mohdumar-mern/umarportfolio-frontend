@@ -57,11 +57,11 @@ const SkillDetail = () => {
             )}
 
             {skill.file?.url && (
-              <div className="mt-6 rounded-xl overflow-hidden border border-gray-200">
+              <div className="mt-6 rounded-xl overflow-hidden ">
                 <img
                   src={skill.file.url}
                   alt={skill.title || "Skill"}
-                  className="w-full object-cover"
+                  className="w-64 h-auto object-cover shadow-2xl"
                 />
               </div>
             )}

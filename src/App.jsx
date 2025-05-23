@@ -18,6 +18,9 @@ import ProjectAddUpdate from "./private/Dashboard/project/ProjectAddAndUpdate";
 import SkillsList from "./private/Dashboard/Skills/SkillList";
 import SkillDetail from "./private/Dashboard/Skills/SkillDetail";
 import AddAndUpdateSkill from "./private/Dashboard/Skills/AddAndUpdateSkill";
+import ServicesList from "./private/Dashboard/Services/ServicesList";
+import AddService from "./private/Dashboard/Services/AddService";
+import ServiceDetail from "./private/Dashboard/Services/ServiceDetail";
 
 function App() {
   return (
@@ -50,6 +53,11 @@ function App() {
             <Route path="skills/:id/view" element={<SkillDetail />} />
             <Route path="skills/add" element={<AddAndUpdateSkill />} />
             <Route path="skills/:id/edit" element={<AddAndUpdateSkill />} />
+
+            <Route path="services" element={<ServicesList />} />
+            <Route path="services/add" element={<AddService />} />
+            <Route path="services/:id/view" element={<ServiceDetail />} />
+
 
           </Route>
 

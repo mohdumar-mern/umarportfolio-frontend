@@ -17,9 +17,9 @@ export const fetchServices = createAsyncThunk("services/fetchServices", async (_
 });
 
 // Fetch service by ID
-export const fetchServicesById = createAsyncThunk("services/fetchServiceById", async (id, thunkAPI) => {
+export const fetchSingleService = createAsyncThunk("services/fetchSingleService", async (id, thunkAPI) => {
   try {
-    const response = await axios.get(`${API_URL}services/${id}`);
+    const response = await axios.get(`${API_URL}services/${id}/view`);
     return response.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response?.data?.message || "Failed to fetch service");
@@ -29,7 +29,7 @@ export const fetchServicesById = createAsyncThunk("services/fetchServiceById", a
 // Add service
 export const addService = createAsyncThunk("services/addService", async (serviceData, thunkAPI) => {
   try {
-    const response = await axios.post(`${API_URL}services`, serviceData);
+    const response = await axios.post(`${API_URL}services/add`, serviceData);
     return response.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response?.data?.message || "Failed to add service");
@@ -93,15 +93,15 @@ const serviceSlice = createSlice({
       })
 
       // Fetch single service
-      .addCase(fetchServicesById.pending, (state) => {
+      .addCase(fetchSingleService.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchServicesById.fulfilled, (state, action) => {
-        state.service = action.payload.service;
+      .addCase(fetchSingleService.fulfilled, (state, action) => {
+        state.service = action.payload.data;
         state.loading = false;
       })
-      .addCase(fetchServicesById.rejected, (state, action) => {
+      .addCase(fetchSingleService.rejected, (state, action) => {
         state.error = action.payload;
         state.loading = false;
       })
