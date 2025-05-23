@@ -11,6 +11,10 @@ import ContactPage from "./pages/Contact/ContatPage";
 import LoginPage from "./pages/Login/LoginPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import DashboardLayout from "./private/Dashboard/DashboardLayut/DashboardLayout";
+import DashboardHome from "./private/Dashboard/DashboardHome/DashboardHome";
+import ProjectList from "./private/Dashboard/project/ProjectList";
+import ProjctDetail from "./private/Dashboard/project/ProjectDetails";
+import ProjectAddUpdate from "./private/Dashboard/project/ProjectAddAndUpdate";
 
 function App() {
   return (
@@ -31,7 +35,13 @@ function App() {
             <ProtectedRoute>
               <DashboardLayout />
             </ProtectedRoute>
-          } ></Route>
+          } >
+            <Route index element={<DashboardHome />} />
+            <Route path="projects" element={<ProjectList />} />
+            <Route path="projects/:id/view" element={<ProjctDetail />} />
+            <Route path="projects/add" element={<ProjectAddUpdate />} />
+            <Route path="projects/:id/edit" element={<ProjectAddUpdate />} />
+          </Route>
 
         </Routes>
       </LayoutComponents>

@@ -6,7 +6,7 @@ import Container from "../../../components/UI/Container/Container";
 const DashboardLayout = () => {
   return (
     <Container>
-      <section className="min-h-[80vh]  w-full flex rounded-xl overflow-hidden bg-gray-100">
+      <section className="min-h-[80vh] mt-10  w-full flex rounded-xl overflow-hidden bg-gray-100">
         {/* Sidebar */}
         <Sidebar />
 
