@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import waquarImg from "../../assets/avatar.jpg";
 import bgImage from "../../assets/bgImg.jpg";
 import Container from "../../components/UI/Container/Container";
 import AvatarCard from "../../components/UI/card/AvatarCard";

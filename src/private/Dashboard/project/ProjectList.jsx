@@ -2,7 +2,12 @@ import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Edit, Eye, Trash } from "lucide-react";
-import { fetchProjects, deleteProject, clearError, clearMessage } from "../../../features/Project/projectSlice";
+import {
+  fetchProjects,
+  deleteProject,
+  clearError,
+  clearMessage,
+} from "../../../features/Project/projectSlice";
 
 import Pagination from "../../../components/UI/pagination/Pagination";
 import Skeleton from "../../../components/UI/Skiliton/tableSkeleton";
@@ -31,7 +36,7 @@ const ProjectList = () => {
         if (message) dispatch(clearMessage());
         if (error) dispatch(clearError());
       }, 3000);
-  
+
       return () => clearTimeout(timer);
     }
   }, [message, error, dispatch]);
@@ -44,7 +49,9 @@ const ProjectList = () => {
         dispatch(deleteProject(id))
           .unwrap()
           .then(() =>
-            dispatch(fetchProjects({ page: currentPage, limit: projectsPerPage }))
+            dispatch(
+              fetchProjects({ page: currentPage, limit: projectsPerPage })
+            )
           )
           .catch((err) => console.error("Failed to delete project:", err));
       }
@@ -65,7 +72,7 @@ const ProjectList = () => {
     <div className="p-4">
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold text-gray-950">Projects List</h2>
+        <h2 className="text-xl font-semibold text-white">Projects List</h2>
         <button
           onClick={handleAddProject}
           className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition"
@@ -96,8 +103,8 @@ const ProjectList = () => {
       {/* Table */}
       {!loading && projects?.length > 0 && (
         <div className="overflow-x-auto">
-          <table className="min-w-full border border-gray-300">
-            <thead className="bg-gray-100 text-gray-900">
+          <table className="min-w-full border border-orange-300">
+            <thead className="bg-orange-100 text-black">
               <tr>
                 <th className="px-4 py-2 border">Sr no</th>
                 <th className="px-4 py-2 border">Title</th>
@@ -107,7 +114,10 @@ const ProjectList = () => {
             </thead>
             <tbody>
               {projects.map((project, index) => (
-                <tr key={project._id} className="hover:bg-gray-50 text-gray-700">
+                <tr
+                  key={project._id}
+                  className="hover:bg-[#111] text-gray-300"
+                >
                   <td className="px-4 py-2 border">{index + 1}</td>
                   <td className="px-4 py-2 border">{project.title}</td>
                   <td className="px-4 py-2 border">
@@ -118,14 +128,18 @@ const ProjectList = () => {
                       <button
                         title="Edit"
                         className="text-blue-600 hover:text-blue-800 transition"
-                        onClick={() => navigate(`/dashboard/projects/${project._id}/edit`)}
+                        onClick={() =>
+                          navigate(`/dashboard/projects/${project._id}/edit`)
+                        }
                       >
                         <Edit size={18} />
                       </button>
                       <button
                         title="View"
                         className="text-green-600 hover:text-green-800 transition"
-                        onClick={() => navigate(`/dashboard/projects/${project._id}/view`)}
+                        onClick={() =>
+                          navigate(`/dashboard/projects/${project._id}/view`)
+                        }
                       >
                         <Eye size={18} />
                       </button>

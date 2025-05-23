@@ -1,19 +1,22 @@
+// src/pages/ProjectDetails.jsx
 import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSingleSkill } from "../../../features/Skills/skillSlice";
+import { fetchSingleProject } from "../../../features/Project/projectSlice";
+import { ChevronLeft } from "lucide-react";
 
-const SkillDetail = () => {
+const ProjectDetails = () => {
   const { id } = useParams();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const { skill, loading, error } = useSelector((state) => state.skill);
-  console.log(skill);
+  const { project, loading, error } = useSelector((state) => state.project);
 
   useEffect(() => {
-    if (id) dispatch(fetchSingleSkill(id));
-  }, [dispatch, id]);
+    if (id) {
+      dispatch(fetchSingleProject(id));
+    }
+  }, [id, dispatch]);
 
   if (loading) {
     return (
@@ -23,68 +26,65 @@ const SkillDetail = () => {
     );
   }
 
-  if (error || !skill) {
-    return (
-      <div className="p-6 text-center text-gray-700">
-        <p>{error || "Skill not found."}</p>
-        <button
-          onClick={() => navigate("/dashboard/skills")}
-          className="mt-4 text-blue-600 hover:underline"
-        >
-          Back to Skill List
-        </button>
-      </div>
-    );
-  }
+  if (error) return <p className="text-red-500 text-center">{error}</p>;
+  if (!project) return <p className="text-center">No project found.</p>;
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-md max-w-4xl mx-auto mt-4">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">Skill Details</h2>
+    <div className="max-w-3xl mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-4">{project.title}</h1>
+      <p className="mb-2">{project.description}</p>
+      <p className="mb-2">
+        <strong>Tech Stack:</strong> {project.techStack}
+      </p>
+      <p className="mb-2">
+        <strong>GitHub:</strong>{" "}
+        <a
+          href={project.githubLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 underline"
+        >
+          {project.githubLink}
+        </a>
+      </p>
+      <p className="mb-4">
+        <strong>Live Demo:</strong>{" "}
+        <a
+          href={project.liveDemo}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-green-600 underline"
+        >
+          {project.liveDemo}
+        </a>
+      </p>
 
-      <div className="space-y-4 text-gray-700">
-        <p>
-          <strong>Name:</strong> {skill.name || "N/A"}
-        </p>
-        <p>
-          <strong>Category:</strong> {skill.category || "N/A"}
-        </p>
-        <p>
-          <strong>Level:</strong> {skill.level || "N/A"}
-        </p>
-        <p>
-          <strong>Created At:</strong>{" "}
-          {skill.createdAt
-            ? new Date(skill.createdAt).toLocaleString()
-            : "N/A"}
-        </p>
+      {project.file?.url && (
+        <img
+          src={project.file.url}
+          alt={project.title}
+          className="w-64 h-auto rounded-lg shadow mb-6"
+        />
+      )}
 
-        {skill.file?.url && (
-          <div className="relative w-full rounded-lg overflow-hidden">
-            <img
-              src={skill.file.url}
-              alt={skill.name || "Skill"}
-              className="w-64 h-auto object-cover"
-            />
-          </div>
-        )}
-      </div>
-
-      <div className="mt-6 flex gap-4">
+      {/* Action Buttons */}
+      <div className="mt-6 flex flex-wrap gap-4">
         <button
           onClick={() => navigate(-1)}
-          className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+          className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
         >
-          Back to Skill List
+          <ChevronLeft size={18} />
+          Back to Project List
         </button>
         <button
-          onClick={() => navigate(`/dashboard/skills/${id}/edit`)}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          onClick={() => navigate(`/dashboard/projects/${id}/edit`)}
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
         >
-          Edit Skill
+          Edit Project
         </button>
       </div>
     </div>
   );
 };
 
-export default SkillDetail;
+export default ProjectDetails;

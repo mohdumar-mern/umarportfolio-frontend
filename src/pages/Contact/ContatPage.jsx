@@ -4,6 +4,8 @@ import { Mail, Phone, User, MessageSquareText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
+import bgImage from "../../assets/bgImg.jpg";
+
 import Input from "../../components/UI/Input/Input";
 import Container from "../../components/UI/Container/Container";
 import AvatarCard from "../../components/UI/card/AvatarCard";
@@ -139,7 +141,12 @@ const ContactPage = () => {
         </div>
 
         {/* Contact Info Section */}
-        <div className="hidden md:flex flex-col bg-orange-500 text-white p-10 items-center justify-center gap-6">
+        <div
+          className="flex items-center justify-center bg-cover p-10 bg-center relative"
+          style={{ backgroundImage: `url(${bgImage})` }}
+          aria-label=" background section"
+        >
+        
           <AvatarCard size="w-20 h-20" />
 
           <div className="text-center space-y-1">
