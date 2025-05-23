@@ -30,6 +30,7 @@ const ResumeDownload = () => {
         <a
           href={resume}
           download="Mohd_Umar_Resume.pdf"
+          target="_blank" rel="noopener noreferrer"
           className="inline-block bg-orange-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-orange-600 transition-colors duration-300 ease-in-out"
         >
           Download Resume

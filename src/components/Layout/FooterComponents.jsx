@@ -4,7 +4,7 @@ import { navItems } from "./HeaderComponents";
 
 const FooterComponents = () => {
   return (
-    <footer className="bg-[#1C1C1C] text-[#BDC3C7] px-6 sm:px-10 py-8  font-sans">
+    <footer className="bg-[#1C1C1C] text-[#BDC3C7] px-6  sm:px-10 py-8  font-sans">
       {/* Desktop Menu */}
       <div className="hidden lg:flex flex-wrap justify-center gap-6 mb-6">
         <ul className="flex gap-6 text-sm font-medium">

@@ -14,7 +14,7 @@ const Home = () => {
       <section className="grid grid-cols-1 lg:grid-cols-2 min-h-[80vh] w-full shadow-2xl rounded-xl overflow-hidden">
         {/* 🔹 Left: Profile with background */}
         <div
-          className="flex items-center justify-center bg-cover bg-center relative"
+          className="flex items-center justify-center bg-cover p-10 bg-center relative"
           style={{ backgroundImage: `url(${bgImage})` }}
           aria-label=" background section"
         >

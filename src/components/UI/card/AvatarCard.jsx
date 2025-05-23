@@ -31,7 +31,7 @@ const AvatarCard = ({ size = "w-64 h-64" }) => {
   return (
     <div className="flex justify-center items-center">
       <div
-        className={`relative overflow-hidden rounded-full   shadow-xl ${size} aspect-square`}
+        className={`relative overflow-hidden rounded-full  shadow-xl ${size} aspect-square`}
       >
         <img
           src={avatar}

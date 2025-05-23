@@ -73,7 +73,7 @@ const AboutPage = () => {
             </div>
              {/* 🔹 Left: Profile with background */}
              <div
-          className="flex items-center justify-center bg-cover bg-center relative"
+          className="flex items-center justify-center bg-cover p-10 bg-center relative"
           style={{ backgroundImage: `url(${bgImage})` }}
           aria-label=" background section"
         >

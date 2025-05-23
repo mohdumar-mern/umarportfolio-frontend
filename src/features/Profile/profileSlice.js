@@ -1,16 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { getAuthHeaders } from "../../utils/AuthHeaders"; // ✅ Import this
+import { getAuthHeaders } from "../../utils/AuthHeaders";
 
 const API_URL = import.meta.env.VITE_REACT_APP_BACKEND_API_URL;
 
-// Fetch Profile
+// — Fetch Profile
 export const fetchProfile = createAsyncThunk(
   "profile/fetchProfile",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_URL}profile`);
-      return response.data;
+      const { data } = await axios.get(`${API_URL}profile`);
+      return data;
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message || "Failed to fetch profile"
@@ -19,13 +19,13 @@ export const fetchProfile = createAsyncThunk(
   }
 );
 
-// Fetch avatar
+// — Fetch Avatar
 export const fetchAvatar = createAsyncThunk(
   "profile/fetchAvatar",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_URL}profile/avatar`);
-      return response.data;
+      const { data } = await axios.get(`${API_URL}profile/avatar`);
+      return data; // { avatar: url, message? }
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message || "Failed to fetch avatar"
@@ -34,13 +34,18 @@ export const fetchAvatar = createAsyncThunk(
   }
 );
 
-// Fetch resume
+// — Fetch Resume (PDF blob)
 export const fetchResume = createAsyncThunk(
   "profile/fetchResume",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_URL}profile/resume`);
-      return response.data;
+      const response = await axios.get(`${API_URL}profile/resume`, {
+        responseType: "blob",
+      });
+      const fileBlob = new Blob([response.data], { type: response.headers['content-type'] });
+
+      const fileURL = URL.createObjectURL(fileBlob);
+      return fileURL;
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message || "Failed to fetch resume"
@@ -49,13 +54,13 @@ export const fetchResume = createAsyncThunk(
   }
 );
 
-// Fetch social links
+// — Fetch Social Links
 export const fetchSocialLinks = createAsyncThunk(
   "profile/fetchSocialLinks",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_URL}profile/social-links`);
-      return response.data;
+      const { data } = await axios.get(`${API_URL}profile/social-links`);
+      return data; // { socialLinks: {...}, message? }
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message || "Failed to fetch social links"
@@ -64,16 +69,16 @@ export const fetchSocialLinks = createAsyncThunk(
   }
 );
 
-// Add profile
+// — Add Profile
 export const addProfile = createAsyncThunk(
   "profile/addProfile",
   async (formData, { rejectWithValue }) => {
     try {
       const headers = getAuthHeaders();
-      const response = await axios.post(`${API_URL}profile/add`, formData, {
+      const { data } = await axios.post(`${API_URL}profile/add`, formData, {
         headers,
       });
-      return response.data;
+      return data;
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message || "Failed to add profile"
@@ -82,17 +87,18 @@ export const addProfile = createAsyncThunk(
   }
 );
 
-// Update profile
+// — Update Profile
 export const updateProfile = createAsyncThunk(
   "profile/updateProfile",
   async ({ id, data }, { rejectWithValue }) => {
     try {
       const headers = getAuthHeaders();
-      const response = await axios.put(
+      const { data: resData } = await axios.put(
         `${API_URL}profile/${id}/edit`,
         data,
+        { headers }
       );
-      return response.data;
+      return resData;
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message || "Failed to update profile"
@@ -101,12 +107,12 @@ export const updateProfile = createAsyncThunk(
   }
 );
 
-// Initial state
+// — Initial state
 const initialState = {
-  avatar: null,
-  resume: null,
-  socialLinks: [],
   profile: null,
+  avatar: null,
+  resume: null,        // will hold the blob URL
+  socialLinks: null,
   loading: false,
   error: null,
   message: null,
@@ -118,96 +124,95 @@ const profileSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-
-      // Profile
+      // — fetchProfile
       .addCase(fetchProfile.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchProfile.fulfilled, (state, action) => {
+      .addCase(fetchProfile.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.profile = action.payload.data;
-        state.message = action.payload.message || "Fetched profile successfully";
+        state.profile = payload.data;
+        state.message = payload.message || "Fetched profile successfully";
       })
-      .addCase(fetchProfile.rejected, (state, action) => {
+      .addCase(fetchProfile.rejected, (state, { payload }) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = payload;
       })
 
-      // Avatar
+      // — fetchAvatar
       .addCase(fetchAvatar.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchAvatar.fulfilled, (state, action) => {
+      .addCase(fetchAvatar.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.avatar = action.payload.avatar;
-        state.message = action.payload.message || "Fetched avatar successfully";
+        state.avatar = payload.avatar;
+        state.message = payload.message || "Fetched avatar successfully";
       })
-      .addCase(fetchAvatar.rejected, (state, action) => {
+      .addCase(fetchAvatar.rejected, (state, { payload }) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = payload;
       })
 
-      // Resume
+      // — fetchResume
       .addCase(fetchResume.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchResume.fulfilled, (state, action) => {
+      .addCase(fetchResume.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.resume = action.payload.resume;
-        state.message = action.payload.message || "Fetched resume successfully";
+        state.resume = payload;
+        state.message = payload.message;
       })
-      .addCase(fetchResume.rejected, (state, action) => {
+      .addCase(fetchResume.rejected, (state, { payload }) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = payload;
       })
 
-      // Social Links
+      // — fetchSocialLinks
       .addCase(fetchSocialLinks.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchSocialLinks.fulfilled, (state, action) => {
+      .addCase(fetchSocialLinks.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.socialLinks = action.payload.socialLinks;
+        state.socialLinks = payload.socialLinks;
         state.message =
-          action.payload.message || "Fetched social links successfully";
+          payload.message || "Fetched social links successfully";
       })
-      .addCase(fetchSocialLinks.rejected, (state, action) => {
+      .addCase(fetchSocialLinks.rejected, (state, { payload }) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = payload;
       })
 
-      // Add Profile
+      // — addProfile
       .addCase(addProfile.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(addProfile.fulfilled, (state, action) => {
+      .addCase(addProfile.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.profile = action.payload.data;
-        state.message = action.payload.message || "Profile added successfully";
+        state.profile = payload.data;
+        state.message = payload.message || "Profile added successfully";
       })
-      .addCase(addProfile.rejected, (state, action) => {
+      .addCase(addProfile.rejected, (state, { payload }) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = payload;
       })
 
-      // Update Profile
+      // — updateProfile
       .addCase(updateProfile.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(updateProfile.fulfilled, (state, action) => {
+      .addCase(updateProfile.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.profile = action.payload.data;
-        state.message = action.payload.message || "Profile updated successfully";
+        state.profile = payload.data;
+        state.message = payload.message || "Profile updated successfully";
       })
-      .addCase(updateProfile.rejected, (state, action) => {
+      .addCase(updateProfile.rejected, (state, { payload }) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = payload;
       });
   },
 });
