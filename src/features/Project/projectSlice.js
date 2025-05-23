@@ -9,9 +9,7 @@ export const fetchProjects = createAsyncThunk(
   "projects/fetchProjects",
   async ({ page = 1, limit = 6 } = {}, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`${API_URL}projects/?page=${page}&limit=${limit}`, {
-        headers: getAuthHeaders(),
-      });
+      const { data } = await axios.get(`${API_URL}projects/?page=${page}&limit=${limit}`, );
       return data;
     } catch (error) {
       return rejectWithValue(error?.response?.data?.message || error.message);

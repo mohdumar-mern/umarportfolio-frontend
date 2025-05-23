@@ -21,6 +21,10 @@ import AddAndUpdateSkill from "./private/Dashboard/Skills/AddAndUpdateSkill";
 import ServicesList from "./private/Dashboard/Services/ServicesList";
 import AddService from "./private/Dashboard/Services/AddService";
 import ServiceDetail from "./private/Dashboard/Services/ServiceDetail";
+import ContactList from "./private/Dashboard/contact/ContactList";
+import ContactDetail from "./private/Dashboard/contact/ContactDetail";
+import ProfileDetail from "./private/Dashboard/Profile/ProfileDetail";
+import UpdateProfile from "./private/Dashboard/Profile/UpdateProfile";
 
 function App() {
   return (
@@ -57,6 +61,14 @@ function App() {
             <Route path="services" element={<ServicesList />} />
             <Route path="services/add" element={<AddService />} />
             <Route path="services/:id/view" element={<ServiceDetail />} />
+
+            <Route path="contacts" element={<ContactList />} />
+            <Route path="contacts/:id/view" element={<ContactDetail />} />
+
+            <Route path="profile" element={<ProfileDetail />} />
+            <Route path="profile/:id/edit" element={<UpdateProfile />} />
+
+
 
 
           </Route>
