@@ -56,7 +56,6 @@ export const updateProject = createAsyncThunk(
     try {
       const headers = getAuthHeaders();
       const response = await axios.put(`${API_URL}projects/${id}/edit`, data, { headers });
-      console.log(data)
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);

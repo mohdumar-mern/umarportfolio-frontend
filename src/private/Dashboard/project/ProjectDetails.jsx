@@ -1,37 +1,37 @@
 import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSingleProject } from "../../../features/Project/projectSlice";
+import { fetchSingleSkill } from "../../../features/Skills/skillSlice";
 
-const ProjctDetail = () => {
+const SkillDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { project, loading, error } = useSelector((state) => state.project);
-  console.log(project);
+  const { skill, loading, error } = useSelector((state) => state.skill);
+  console.log(skill);
 
   useEffect(() => {
-    if (id) dispatch(fetchSingleProject(id));
+    if (id) dispatch(fetchSingleSkill(id));
   }, [dispatch, id]);
 
   if (loading) {
     return (
-        <div className="text-center mt-12">
+      <div className="text-center mt-12">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500 mx-auto"></div>
       </div>
     );
   }
 
-  if (error || !project) {
+  if (error || !skill) {
     return (
       <div className="p-6 text-center text-gray-700">
-        <p>{error || "Project not found."}</p>
+        <p>{error || "Skill not found."}</p>
         <button
-          onClick={() => navigate("/dashboard/projects")}
+          onClick={() => navigate("/dashboard/skills")}
           className="mt-4 text-blue-600 hover:underline"
         >
-          Back to Project List
+          Back to Skill List
         </button>
       </div>
     );
@@ -39,82 +39,52 @@ const ProjctDetail = () => {
 
   return (
     <div className="p-6 bg-white rounded-lg shadow-md max-w-4xl mx-auto mt-4">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">Project Details</h2>
+      <h2 className="text-2xl font-bold text-gray-800 mb-6">Skill Details</h2>
 
       <div className="space-y-4 text-gray-700">
         <p>
-          <strong>Title:</strong> {project.title || "N/A"}
+          <strong>Name:</strong> {skill.name || "N/A"}
         </p>
         <p>
-          <strong>Description:</strong> {project.description || "N/A"}
+          <strong>Category:</strong> {skill.category || "N/A"}
         </p>
         <p>
-          <strong>Tech Stack:</strong> {project.techStack?.join(", ") || "N/A"}
-        </p>
-        <p>
-          <strong>GitHub:</strong>{" "}
-          {project.githubLink ? (
-            <a
-              href={project.githubLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              {project.githubLink}
-            </a>
-          ) : (
-            "N/A"
-          )}
-        </p>
-        <p>
-          <strong>Live Link:</strong>{" "}
-          {project.liveDemo ? (
-            <a
-              href={project.liveDemo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              {project.liveDemo}
-            </a>
-          ) : (
-            "N/A"
-          )}
+          <strong>Level:</strong> {skill.level || "N/A"}
         </p>
         <p>
           <strong>Created At:</strong>{" "}
-          {project.createdAt
-            ? new Date(project.createdAt).toLocaleString()
+          {skill.createdAt
+            ? new Date(skill.createdAt).toLocaleString()
             : "N/A"}
         </p>
 
-        {project.file && (
-            <div className="relative w-full  rounded-lg overflow-hidden">
-              <img
-                src={project.file?.url}
-                alt={project.title || "Project"}
-                className="w-64 h-auto object-cover"
-              />
+        {skill.file?.url && (
+          <div className="relative w-full rounded-lg overflow-hidden">
+            <img
+              src={skill.file.url}
+              alt={skill.name || "Skill"}
+              className="w-64 h-auto object-cover"
+            />
           </div>
         )}
       </div>
 
       <div className="mt-6 flex gap-4">
         <button
-          onClick={() => navigate("/dashboard/projects")}
+          onClick={() => navigate(-1)}
           className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
         >
-          Back to Project List
+          Back to Skill List
         </button>
         <button
-          onClick={() => navigate(`/dashboard/projects/${id}/edit`)}
+          onClick={() => navigate(`/dashboard/skills/${id}/edit`)}
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
         >
-          Edit Project
+          Edit Skill
         </button>
       </div>
     </div>
   );
 };
 
-export default ProjctDetail;
+export default SkillDetail;

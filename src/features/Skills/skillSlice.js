@@ -17,9 +17,9 @@ export const fetchSkills = createAsyncThunk("skills/fetchSkills", async (_, thun
 });
 
 // Fetch skill by ID
-export const fetchSkillById = createAsyncThunk("skills/fetchSkillById", async (id, thunkAPI) => {
+export const fetchSingleSkill = createAsyncThunk("skills/fetchSingleSkill", async (id, thunkAPI) => {
   try {
-    const response = await axios.get(`${API_URL}skills/${id}`);
+    const response = await axios.get(`${API_URL}skills/${id}/view`);
     return response.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response?.data?.message || "Failed to fetch skill");
@@ -29,7 +29,7 @@ export const fetchSkillById = createAsyncThunk("skills/fetchSkillById", async (i
 // Add skill
 export const addSkill = createAsyncThunk("skills/addSkill", async (skillData, thunkAPI) => {
   try {
-    const response = await axios.post(`${API_URL}skills`, skillData);
+    const response = await axios.post(`${API_URL}skills/add`, skillData);
     return response.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response?.data?.message || "Failed to add skill");
@@ -39,7 +39,8 @@ export const addSkill = createAsyncThunk("skills/addSkill", async (skillData, th
 // Update skill
 export const updateSkill = createAsyncThunk("skills/updateSkill", async ({ id, skillData }, thunkAPI) => {
   try {
-    const response = await axios.put(`${API_URL}skills/${id}`, skillData);
+    const response = await axios.put(`${API_URL}skills/${id}/edit`, skillData);
+    console.log(skillData)
     return response.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response?.data?.message || "Failed to update skill");
@@ -68,11 +69,9 @@ const skillsSlice = createSlice({
   },
   reducers: {
     resetSkillsState: (state) => {
-      state.skills = [];
-      state.skill = null;
-      state.loading = false;
       state.error = null;
       state.message = null;
+      state.loading = false;
     },
   },
   extraReducers: (builder) => {
@@ -93,15 +92,15 @@ const skillsSlice = createSlice({
       })
 
       // Fetch single skill
-      .addCase(fetchSkillById.pending, (state) => {
+      .addCase(fetchSingleSkill.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchSkillById.fulfilled, (state, action) => {
-        state.skill = action.payload.skill;
+      .addCase(fetchSingleSkill.fulfilled, (state, action) => {
+        state.skill = action.payload.data;
         state.loading = false;
       })
-      .addCase(fetchSkillById.rejected, (state, action) => {
+      .addCase(fetchSingleSkill.rejected, (state, action) => {
         state.error = action.payload;
         state.loading = false;
       })
