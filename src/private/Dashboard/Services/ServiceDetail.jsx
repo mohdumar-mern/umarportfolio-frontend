@@ -68,7 +68,7 @@ const ServiceDetail = () => {
           </button>
           <button
             onClick={() => navigate(`/dashboard/skills/${id}/edit`)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600"
           >
             Edit Skill
           </button>
