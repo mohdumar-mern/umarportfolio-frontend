@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import waquarImg from "../../assets/avatar.jpg";
 import bgImage from "../../assets/bgImg.jpg";
 import Container from "../../components/UI/Container/Container";
+import AvatarCard from "../../components/UI/card/AvatarCard";
 
 
 const skills = [
@@ -72,22 +73,12 @@ const AboutPage = () => {
             </div>
              {/* 🔹 Left: Profile with background */}
              <div
-              className="flex items-center justify-center bg-cover bg-center relative"
-              style={{ backgroundImage: `url(${bgImage})` }}
-              aria-label="Waquar Ahmad's background section"
-            >
-              <div
-               
-                className="backdrop-blur-md bg-black/30 p-6 rounded-full shadow-xl w-80 h-80 flex items-center justify-center hover:scale-105 transition-transform duration-300"
-              >
-                <img
-                  src={waquarImg}
-                  alt="Portrait of Waquar Ahmad"
-                  className="rounded-full w-full h-full object-cover shadow-2xl"
-                  loading="lazy"
-                />
-              </div>
-            </div>
+          className="flex items-center justify-center bg-cover bg-center relative"
+          style={{ backgroundImage: `url(${bgImage})` }}
+          aria-label=" background section"
+        >
+            <AvatarCard />
+        </div>
           </section>
         </Container>
       );
