@@ -38,10 +38,10 @@ const ContactDetail = () => {
   }
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-md max-w-4xl mx-auto mt-4">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">Contact Details</h2>
+    <div className="p-6  rounded-lg shadow-md max-w-4xl mx-auto mt-4">
+      <h2 className="text-2xl font-bold text-white mb-6">Contact Details</h2>
 
-      <div className="space-y-4 text-gray-700">
+      <div className="space-y-4 text-gray-300">
         <p>
           <strong>Name:</strong> {contact.name || "N/A"}
         </p>

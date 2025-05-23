@@ -1,24 +1,26 @@
 import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { fetchProfile } from "../../../features/Profile/profileSlice";
+import { fetchProfile, fetchResume } from "../../../features/Profile/profileSlice";
 
 const ProfileDetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { loading, error, profile } = useSelector(
+  const { loading, error, profile, resume } = useSelector(
     (state) => state.profile,
     shallowEqual
   );
+  console.log(resume)
 
-  const { avatar, resume, socialLinks, fullName = "Mohd Umar" } = profile || {};
+  const { avatar,  socialLinks, fullName = "Mohd Umar" } = profile || {};
   const hasSocialLinks =
     socialLinks && Object.values(socialLinks).some((link) => link);
 
   const fetchProfileData = useCallback(() => {
     if (!profile || Object.keys(profile).length === 0) {
       dispatch(fetchProfile());
+      dispatch(fetchResume)
     }
   }, [dispatch, profile]);
 
@@ -37,9 +39,9 @@ const ProfileDetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white p-6">
+    <div className="min-h-screen  p-6">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-semibold text-gray-900">Profile</h2>
+        <h2 className="text-xl font-semibold text-white">Profile</h2>
         <button
           onClick={handleUpdateProfile}
           className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition duration-200"
@@ -59,8 +61,8 @@ const ProfileDetail = () => {
       )}
 
       {!loading && profile && (
-        <div className="max-w-2xl mx-auto bg-white shadow rounded-lg p-6">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">{fullName}</h2>
+        <div className="max-w-2xl mx-auto  shadow rounded-lg p-6">
+          <h2 className="text-2xl font-bold text-gray-200 mb-4">{fullName}</h2>
 
           <div className="flex flex-col items-center gap-4 mb-6">
             {avatar?.url && (
@@ -71,12 +73,12 @@ const ProfileDetail = () => {
               />
             )}
 
-            {resume?.url && (
+            {resume && (
               <a
-                href={resume.url}
+                href={resume}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:underline"
+                className="text-orange-600 hover:underline"
               >
                 View Resume
               </a>
@@ -84,7 +86,7 @@ const ProfileDetail = () => {
           </div>
 
           {hasSocialLinks && (
-            <div className="text-gray-700 space-y-2">
+            <div className="text-gray-300 space-y-2">
               <h3 className="font-semibold text-lg mb-1">Social Links</h3>
               {Object.entries(socialLinks).map(
                 ([platform, link]) =>

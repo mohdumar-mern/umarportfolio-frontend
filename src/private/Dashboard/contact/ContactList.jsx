@@ -65,7 +65,7 @@ const ContactList = () => {
     <div className="p-4">
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold text-gray-950">Contact Messages</h2>
+        <h2 className="text-xl font-semibold text-white">Contact Messages</h2>
       </div>
 
       {/* Messages */}
@@ -101,7 +101,8 @@ const ContactList = () => {
             </thead>
             <tbody>
               {contacts.map((contact, index) => (
-                <tr key={contact._id} className="hover:bg-gray-50 text-gray-700">
+                <tr key={contact._id}                   className="hover:bg-[#111] text-gray-300"
+>
                   <td className="px-4 py-2 border">{index + 1}</td>
                   <td className="px-4 py-2 border">{contact.name}</td>
                   <td className="px-4 py-2 border">{contact.email}</td>

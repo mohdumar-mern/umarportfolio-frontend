@@ -50,7 +50,7 @@ const ServicesList = () => {
     <div className="p-4">
       {/* Top Bar */}
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold text-gray-950">Services List</h2>
+        <h2 className="text-xl font-semibold text-white">Services List</h2>
         <button
           onClick={handleAddService}
           className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition"
@@ -73,7 +73,7 @@ const ServicesList = () => {
           <p>No services found.</p>
           <button
             onClick={handleAddService}
-            className="mt-4 text-blue-600 hover:text-blue-800 transition"
+            className="mt-4 text-orange-600 hover:text-orange-800 transition"
           >
             + Add Your First Service
           </button>
@@ -83,8 +83,8 @@ const ServicesList = () => {
       {/* Table */}
       {!loading && services?.length > 0 && (
         <div className="overflow-x-auto">
-          <table className="min-w-full border border-gray-300">
-            <thead className="bg-gray-100 text-gray-900">
+           <table className="min-w-full border border-orange-300">
+           <thead className="bg-orange-100 text-black">
               <tr>
                 <th className="px-4 py-2 border">Srno.</th>
                 <th className="px-4 py-2 border">Title</th>
@@ -95,7 +95,8 @@ const ServicesList = () => {
             </thead>
             <tbody>
               {services.map((service, index) => (
-                <tr key={service._id} className="hover:bg-gray-50 text-gray-700">
+                <tr key={service._id}                   className="hover:bg-[#111] text-gray-300"
+>
                   <td className="px-4 py-2 border">{index + 1}</td>
                   <td className="px-4 py-2 border">{service.title}</td>
                 
