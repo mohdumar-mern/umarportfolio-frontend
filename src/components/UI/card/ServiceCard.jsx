@@ -3,8 +3,7 @@ import { Code } from "lucide-react"; // fallback icon
 
 const ServiceCard = ({ title, category, imageUrl, description, status }) => {
   return (
-    <div className="bg-[#0F0F0F] rounded-2xl border border-orange-500 shadow-[inset_0_-2px_4px_rgba(255,255,255,0.1),8px_8px_20px_rgba(249,115,22,0.3),-8px_-8px_20px_rgba(255,255,255,0.03)] transition-all duration-500 hover:scale-[1.03] hover:shadow-[inset_0_-2px_4px_rgba(255,255,255,0.1),12px_12px_30px_rgba(249,115,22,0.5),-12px_-12px_30px_rgba(255,255,255,0.05)] transform">
-      
+    <div className="bg-[#0F0F0F] rounded-2xl border border-orange-500 shadow-[inset_0_-2px_4px_rgba(255,255,255,0.1),8px_8px_20px_rgba(249,115,22,0.3),-8px_-8px_20px_rgba(255,255,255,0.03)] transition-all duration-500 hover:scale-[1.03] hover:shadow-[inset_0_-2px_4px_rgba(255,255,255,0.1),12px_12px_30px_rgba(249,115,22,0.5),-12px_-12px_30px_rgba(255,255,255,0.05)] transform min-h-80">
       <div className="flex items-center justify-center pt-6">
         {imageUrl ? (
           <img
@@ -19,13 +18,18 @@ const ServiceCard = ({ title, category, imageUrl, description, status }) => {
         )}
       </div>
 
-      <h3 className="text-xl font-bold text-white text-center mt-4">{title}</h3>
-      <p className="text-sm text-orange-300 text-center mb-4">{description}</p>
+      <h3 className="text-xl font-bold text-white text-left pl-3 mt-4">
+        {title}
+      </h3>
+      <p className="text-sm text-orange-300 text-left p-3 mb-2">
+        {description}
+      </p>
 
-      <div className="text-center pb-6">
+      <div className="text-left pb-6 pl-3">
         <span className="inline-block  text-orange-500   text-sm font-semibold shadow-md">
-          Category: 
-        </span> {category}
+          <strong> Category:</strong>
+        </span>{" "}
+        {category}
       </div>
     </div>
   );

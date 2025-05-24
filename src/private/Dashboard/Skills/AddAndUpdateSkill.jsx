@@ -3,16 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { ChevronLeft, Code, Image } from "lucide-react";
 import Input from "../../../components/UI/Input/Input";
-import { addSkill, updateSkill, resetSkillsState } from "../../../features/Skills/skillSlice";
+import { addSkill,  resetSkillsState } from "../../../features/Skills/skillSlice";
 
 const AddAndUpdateSkill = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const existingSkill = useSelector((state) =>
-    state.skill?.skills?.find((skill) => skill._id === id)
-  );
+ 
 
   const { loading, error, message } = useSelector((state) => state.skill);
 
@@ -25,16 +23,7 @@ const AddAndUpdateSkill = () => {
     file: null,
   });
 
-  useEffect(() => {
-    if (isEditing && existingSkill) {
-      setFormData({
-        title: existingSkill?.title || "",
-        level: existingSkill?.level || "Beginner",
-        category: existingSkill?.category || "Frontend",
-        file: null,
-      });
-    }
-  }, [existingSkill, isEditing]);
+
 
   // Clear messages after 3 seconds
   useEffect(() => {
@@ -70,11 +59,8 @@ const AddAndUpdateSkill = () => {
     }
 
     try {
-      if (isEditing) {
-        await dispatch(updateSkill({ id, updatedData: formPayload })).unwrap();
-      } else {
+    
         await dispatch(addSkill(formPayload)).unwrap();
-      }
       navigate("/dashboard/skills");
     } catch (err) {
       console.error(isEditing ? "Update failed:" : "Add failed:", err);
@@ -92,7 +78,7 @@ const AddAndUpdateSkill = () => {
       </button>
 
       <h2 className="text-2xl font-semibold mb-4 text-orange-500">
-        {isEditing ? "Update Skill" : "Add Skill"}
+      Add Skill
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -154,10 +140,10 @@ const AddAndUpdateSkill = () => {
           type="submit"
           disabled={loading}
           className={`w-full py-2 rounded ${
-            loading ? "bg-gray-600 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
+            loading ? "bg-orange-600 cursor-not-allowed" : "bg-orange-600 hover:bg-orange-700"
           } text-white`}
         >
-          {loading ? (isEditing ? "Updating..." : "Adding...") : isEditing ? "Update Skill" : "Add Skill"}
+          {loading ?  "Adding..."  : "Add Skill"}
         </button>
       </form>
 

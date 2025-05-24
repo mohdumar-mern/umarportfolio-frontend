@@ -75,12 +75,12 @@ const SkillsList = () => {
             </thead>
             <tbody>
               {skills.map((skill, index) => (
-                <tr key={skill._id} className="hover:bg-[#111] text-gray-300">
+                <tr key={skill?._id} className="hover:bg-[#111] text-gray-300">
                   <td className="px-4 py-2 border">{index + 1}</td>
-                  <td className="px-4 py-2 border">{skill.title}</td>
+                  <td className="px-4 py-2 border">{skill?.title}</td>
 
                   <td className="px-4 py-2 border">
-                    {skill.createdAt
+                    {skill?.createdAt
                       ? new Date(skill.createdAt).toLocaleDateString()
                       : "N/A"}
                   </td>

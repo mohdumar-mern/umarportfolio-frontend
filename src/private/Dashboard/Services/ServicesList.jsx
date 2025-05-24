@@ -4,7 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Trash, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Skeleton from "../../../components/UI/Skiliton/tableSkeleton";
-import { deleteservice, fetchServices } from "../../../features/service/serviceSlice";
+import {
+  deleteservice,
+  fetchServices,
+} from "../../../features/service/serviceSlice";
 
 const ServicesList = () => {
   const dispatch = useDispatch();
@@ -83,25 +86,24 @@ const ServicesList = () => {
       {/* Table */}
       {!loading && services?.length > 0 && (
         <div className="overflow-x-auto">
-           <table className="min-w-full border border-orange-300">
-           <thead className="bg-orange-100 text-black">
+          <table className="min-w-full border border-orange-300">
+            <thead className="bg-orange-100 text-black">
               <tr>
                 <th className="px-4 py-2 border">Srno.</th>
                 <th className="px-4 py-2 border">Title</th>
-             
+
                 <th className="px-4 py-2 border">Date</th>
                 <th className="px-4 py-2 border">Actions</th>
               </tr>
             </thead>
             <tbody>
               {services.map((service, index) => (
-                <tr key={service._id}                   className="hover:bg-[#111] text-gray-300"
->
+                <tr key={service?._id} className="hover:bg-[#111] text-gray-300">
                   <td className="px-4 py-2 border">{index + 1}</td>
-                  <td className="px-4 py-2 border">{service.title}</td>
-                
+                  <td className="px-4 py-2 border">{service?.title}</td>
+
                   <td className="px-4 py-2 border">
-                    {service.createdAt
+                    {service?.createdAt
                       ? new Date(service.createdAt).toLocaleDateString()
                       : "N/A"}
                   </td>
