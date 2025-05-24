@@ -2,11 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
 
 import projectReducer from "../features/Project/projectSlice";
-import skillReducer from "../features/Skills/skillSlice"
-import serviceReducer from "../features/service/serviceSlice"
-import profileReducer from "../features/Profile/profileSlice"
-import contactReducer from "../features/Contact/contactSlice"
-import authReducer from "../features/Auth/authSlice"
+import skillReducer from "../features/Skills/skillSlice";
+import serviceReducer from "../features/service/serviceSlice";
+import profileReducer from "../features/Profile/profileSlice";
+import contactReducer from "../features/Contact/contactSlice";
+import authReducer from "../features/Auth/authSlice";
+
+const isDevelopment = import.meta.env.NODE_ENV === "development";
+
 export const store = configureStore({
   reducer: {
     project: projectReducer,
@@ -17,5 +20,7 @@ export const store = configureStore({
     auth: authReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(logger),
+    isDevelopment
+      ? getDefaultMiddleware().concat(logger)
+      : getDefaultMiddleware(),
 });

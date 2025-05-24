@@ -11,7 +11,6 @@ const ProfileDetail = () => {
     (state) => state.profile,
     shallowEqual
   );
-  console.log(resume)
 
   const { avatar,  socialLinks, fullName = "Mohd Umar" } = profile || {};
   const hasSocialLinks =

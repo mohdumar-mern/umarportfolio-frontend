@@ -89,7 +89,7 @@ const ProjectAddUpdate = () => {
       }
       setTimeout(() => navigate("/dashboard/projects"), 1000);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 

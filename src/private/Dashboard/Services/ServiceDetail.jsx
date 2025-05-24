@@ -10,7 +10,6 @@ const ServiceDetail = () => {
   const navigate = useNavigate();
 
   const { service, loading, error } = useSelector((state) => state.service);
-  console.log(service)
 
   useEffect(() => {
     if (id) {

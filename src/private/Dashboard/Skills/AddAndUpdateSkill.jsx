@@ -71,7 +71,6 @@ const AddAndUpdateSkill = () => {
 
     try {
       if (isEditing) {
-        console.log("Updating skill with data:", formData);
         await dispatch(updateSkill({ id, updatedData: formPayload })).unwrap();
       } else {
         await dispatch(addSkill(formPayload)).unwrap();

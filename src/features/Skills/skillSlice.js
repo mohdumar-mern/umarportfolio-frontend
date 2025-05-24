@@ -40,7 +40,6 @@ export const addSkill = createAsyncThunk("skills/addSkill", async (skillData, th
 export const updateSkill = createAsyncThunk("skills/updateSkill", async ({ id, skillData }, thunkAPI) => {
   try {
     const response = await axios.put(`${API_URL}skills/${id}/edit`, skillData);
-    console.log(skillData)
     return response.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response?.data?.message || "Failed to update skill");
