@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchServices } from "../../features/service/serviceSlice";
-import {  } from "../../features/Skills/skillSlice";
 import Container from "../../components/UI/Container/Container";
 import ServiceCard from "../../components/UI/card/ServiceCard";
+import { motion } from "framer-motion";
 
 const ServicesPage = () => {
   const dispatch = useDispatch();
@@ -13,46 +13,80 @@ const ServicesPage = () => {
     dispatch(fetchServices());
   }, [dispatch]);
 
+  const containerVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 50,
+        damping: 10,
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: { opacity: 1, scale: 1 },
+  };
+
   return (
     <Container>
-      <section className="w-full min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+      <motion.section
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+        className="w-full min-h-screen py-12 px-4 sm:px-6 lg:px-8"
+      >
         {/* Header */}
-        <div className="text-center my-12">
+        <motion.div variants={cardVariants} className="text-center my-12">
           <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-2">
-            My <span className="text-orange-500">Skills</span>
+            My <span className="text-orange-500">Services</span>
           </h1>
           <p className="text-[#BDC3C7] text-sm sm:text-base">
-            Technologies I've worked with and mastered
+            The services I offer to help clients achieve their digital goals.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Error Handling */}
+        {/* Error */}
         {error && (
-          <p className="text-red-500 text-center mb-6 text-lg font-semibold">
+          <motion.p
+            variants={cardVariants}
+            className="text-red-500 text-center mb-6 text-lg font-semibold"
+          >
             {error}
-          </p>
+          </motion.p>
         )}
 
-        {/* Skills Grid */}
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        {/* Services Grid */}
+        <motion.div
+          variants={containerVariants}
+          className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+        >
           {!loading && services.length > 0 ? (
-            services.map((Service) => (
-              <ServiceCard
-                key={Service._id}
-                title={Service.title}
-                category={Service.category}
-                imageUrl={Service?.file?.url}
-                description={Service.description}
-              />
+            services.map((service) => (
+              <motion.div key={service._id} variants={cardVariants}>
+                <ServiceCard
+                  title={service.title}
+                  category={service.category}
+                  imageUrl={service?.file?.url}
+                  description={service.description}
+                />
+              </motion.div>
             ))
           ) : (
             !loading && (
-              <p className="text-white text-center col-span-full mt-8">
-                No skills available at the moment.
-              </p>
+              <motion.p
+                variants={cardVariants}
+                className="text-white text-center col-span-full mt-8"
+              >
+                No services available at the moment.
+              </motion.p>
             )
           )}
-        </div>
+        </motion.div>
 
         {/* Loader */}
         {loading && (
@@ -61,7 +95,7 @@ const ServicesPage = () => {
             <p className="text-gray-400 mt-2">Loading Services...</p>
           </div>
         )}
-      </section>
+      </motion.section>
     </Container>
   );
 };

@@ -1,10 +1,10 @@
 # 🧑‍💼 Umar MERN Portfolio – Frontend
 
-This is the **frontend** of the **Umar MERN Portfolio** — a full-stack portfolio management application where users can manage their personal profiles including avatar, resume, and social links.
+This is the **frontend** of the **Umar MERN Portfolio** — a full-stack portfolio management application where users can manage personal profiles including avatar, resume, social links, projects, skills, and more.
 
-Built with **React.js**, **Redux Toolkit**, **React Router DOM**, and styled using **Tailwind CSS** and **DaisyUI**.
+Built using **React.js**, **Redux Toolkit**, **React Router DOM**, and styled with **Tailwind CSS** and **DaisyUI**.
 
-> 🔗 Backend Repository: [https://github.com/mohdumar-mern/umarmernportfoilo](#)
+> 🔗 **Backend Repository**: [https://github.com/mohdumar-mern/umarmernportfoilo](https://github.com/mohdumar-mern/umarmernportfoilo)
 
 ---
 
@@ -12,10 +12,10 @@ Built with **React.js**, **Redux Toolkit**, **React Router DOM**, and styled usi
 
 - 📄 **Profile Management** – Add and update name, avatar, resume, and social links.
 - 🖼️ **Media Uploads** – Upload avatar and resume with real-time preview.
-- 🔄 **Dynamic Updates** – Edit profile data using modern state management.
-- 🧠 **Redux Toolkit** – Clean and efficient state handling.
-- 🔐 **Secure API Integration** – Interact with a backend via protected routes.
-- 💅 **Responsive Design** – Built with Tailwind CSS and DaisyUI for a clean UI.
+- 🧠 **Redux Toolkit** – Modern and maintainable state management.
+- 🔄 **Dynamic Updates** – Update profile and project data seamlessly.
+- 🔐 **Secure API Integration** – Interact with protected backend routes.
+- 💅 **Responsive UI** – Clean design using Tailwind CSS and DaisyUI.
 
 ---
 
@@ -28,29 +28,30 @@ Built with **React.js**, **Redux Toolkit**, **React Router DOM**, and styled usi
 | Routing        | React Router DOM                       |
 | Styling        | Tailwind CSS, DaisyUI                  |
 | HTTP Requests  | Axios                                  |
-| File Uploads   | Cloudinary integration via backend API |
+| File Uploads   | Cloudinary (via backend integration)   |
 
 ---
 
 ## 📁 Folder Structure
 
+```plaintext
 umarmernportfolio-frontend/
-│
-├── public/ # Static files
+├── public/                     # Static files
 ├── src/
-│ ├── components/ # Reusable UI components
-│ ├── features/ # Redux slices (profileSlice, etc.)
-│ ├── pages/ # Main pages (Home, Profile, Edit, etc.)
-│ ├── app/ # Redux store setup
-│ ├── services/ # Axios-based API calls
-│ ├── routes/ # Route definitions (including private routes)
-│ ├── private/Dashboard/ # Protected dashboard pages
-│ ├── App.jsx # Root component with routes
-│ ├── main.jsx # Application entry point
-│ └── index.css # Global styles
-├── .env # Environment variables
-├── package.json # Project metadata and dependencies
-└── README.md # Project documentation
+│   ├── app/                    # Redux store setup
+│   ├── components/             # Reusable UI components
+│   ├── features/               # Redux slices (profileSlice, projectSlice, etc.)
+│   ├── pages/                  # Route pages (Home, Profile, Projects, etc.)
+│   ├── private/Dashboard/      # Authenticated dashboard pages
+│   ├── routes/                 # Route definitions and protected routing
+│   ├── services/               # Axios-based API requests
+│   ├── App.jsx                 # Root component with all routes
+│   ├── main.jsx                # React app entry point
+│   └── index.css               # Global styles
+├── .env                        # Environment variables
+├── package.json                # Project metadata and dependencies
+└── README.md                   # Project documentation
+
 
 
 

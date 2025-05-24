@@ -1,8 +1,9 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Mail, Phone, User, MessageSquareText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { motion } from "framer-motion";  // <-- import motion
 
 import bgImage from "../../assets/bgImg.jpg";
 
@@ -39,20 +40,22 @@ const ContactPage = () => {
     return null;
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const validationError = validateForm();
-    if (validationError) {
-      setFormError(validationError);
-      return;
-    }
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      const validationError = validateForm();
+      if (validationError) {
+        setFormError(validationError);
+        return;
+      }
 
-    dispatch(sendContactRequest(formData)).then((res) => {
+      const res = await dispatch(sendContactRequest(formData));
       if (res.meta.requestStatus === "fulfilled") {
         setFormData(initialFormState);
       }
-    });
-  };
+    },
+    [dispatch, formData]
+  );
 
   useEffect(() => {
     if (message) {
@@ -71,11 +74,29 @@ const ContactPage = () => {
     };
   }, [dispatch]);
 
+  // Animation variants
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  };
+
+  const buttonVariants = {
+    hover: {
+      scale: 1.05,
+      transition: { duration: 0.3, yoyo: Infinity },
+    },
+  };
+
   return (
     <Container>
       <section className="grid grid-cols-1 lg:grid-cols-2 min-h-[80vh] w-full shadow-2xl rounded-xl overflow-hidden">
         {/* Form Section */}
-        <div className="bg-black px-6 lg:px-12 py-12">
+        <motion.div
+          className="bg-black px-6 lg:px-12 py-12"
+          initial="hidden"
+          animate="visible"
+          variants={sectionVariants}
+        >
           <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-2 justify-center">
             <Phone className="text-orange-500" />
             Contact Us
@@ -130,26 +151,31 @@ const ContactPage = () => {
               </div>
             </div>
 
-            <button
+            <motion.button
               type="submit"
               disabled={loading}
               className="w-full bg-orange-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-orange-600 transition disabled:opacity-50"
+              variants={buttonVariants}
+              whileHover="hover"
             >
               {loading ? "Sending..." : "Send Message"}
-            </button>
+            </motion.button>
           </form>
-        </div>
+        </motion.div>
 
         {/* Contact Info Section */}
-        <div
-          className="flex items-center justify-center bg-cover p-10 bg-center relative"
+        <motion.div
+          className="flex flex-col items-center justify-center bg-cover p-10 bg-center gap-4 relative"
           style={{ backgroundImage: `url(${bgImage})` }}
-          aria-label=" background section"
+          aria-label="background section"
+          initial="hidden"
+          animate="visible"
+          variants={sectionVariants}
+          transition={{ delay: 0.3 }}
         >
-        
           <AvatarCard size="w-20 h-20" />
 
-          <div className="text-center space-y-1">
+          <div className="text-center text-white space-y-1">
             <div>
               Phone:{" "}
               <a href="tel:9628787975" className="underline">
@@ -164,21 +190,21 @@ const ContactPage = () => {
             </div>
           </div>
 
-          <SocialLinksComponents />
+          <SocialLinksComponents color="bg-black" />
 
           <div className="flex gap-4">
             <ResumeDownload />
             <Link
               to="/contact"
-              className="border border-black text-black font-medium px-4 py-2 rounded-lg hover:bg-black hover:text-orange-500 transition"
+              className="border border-black bg-white text-black font-medium px-4 py-2 rounded-lg hover:bg-black hover:text-orange-500 transition"
             >
               Contact Me
             </Link>
           </div>
-        </div>
+        </motion.div>
       </section>
     </Container>
   );
 };
 
-export default ContactPage;
+export default memo(ContactPage);

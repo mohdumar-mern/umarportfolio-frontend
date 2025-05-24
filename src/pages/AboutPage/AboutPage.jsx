@@ -1,87 +1,136 @@
-import React from "react";
+import React, { useMemo } from "react";
+import { motion } from "framer-motion"; // <-- import motion
 import { Link } from "react-router-dom";
 
-import waquarImg from "../../assets/avatar.jpg";
 import bgImage from "../../assets/bgImg.jpg";
 import Container from "../../components/UI/Container/Container";
 import AvatarCard from "../../components/UI/card/AvatarCard";
 
-
-const skills = [
-    'JavaScript',
-    'React',
-    'Node.js',
-    'Git',
-    'NPM',
-    'Express',
-    'MongoDB'
-    
-  
-  
-];
-
 const AboutPage = () => {
-    return (
-        <Container>
-          <section
-           
-            className="grid grid-cols-1 lg:grid-cols-2 min-h-[80vh] w-full shadow-2xl rounded-xl overflow-hidden"
-          >
-           
-    
-            {/* 🔸 Right: Content */}
-            <div className="flex items-center justify-center bg-black px-6 lg:px-12 py-12">
-              <aside
-            
-                className="space-y-6 max-w-xl text-white"
+  const skills = useMemo(
+    () => [
+      "JavaScript",
+      "React",
+      "Node.js",
+      "Git",
+      "NPM",
+      "Express",
+      "MongoDB",
+    ],
+    []
+  );
+
+  // Variants for parent container to stagger children animation
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  // Variants for text items: fade in + slide up
+  const textVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  };
+
+  // Variant for AvatarCard scale and fade
+  const avatarVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: "easeOut" } },
+  };
+
+  return (
+    <Container>
+      <section className="grid grid-cols-1 lg:grid-cols-2 min-h-[80vh] w-full shadow-2xl rounded-xl overflow-hidden">
+        {/* 🔹 Left: Profile Section */}
+        <motion.div
+          className="flex items-center justify-center bg-black px-6 lg:px-12 py-12"
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+        >
+          <aside className="space-y-6 max-w-xl text-white">
+            <motion.h1
+              className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-orange-400"
+              variants={textVariants}
+            >
+              About Me
+            </motion.h1>
+
+            <motion.h2
+              className="text-lg md:text-xl lg:text-2xl font-medium"
+              variants={textVariants}
+            >
+              I'm a{" "}
+              <span className="text-orange-400 font-semibold">
+                MERN Stack Developer,
+              </span>
+            </motion.h2>
+
+            <motion.p
+              className="text-gray-300 text-base md:text-lg leading-relaxed"
+              variants={textVariants}
+            >
+              Hi, I'm Mohd Umar, a MERN Stack Developer from Noida, Uttar
+              Pradesh, India. I enjoy building full-stack web applications that
+              are fast, responsive, and user-friendly.
+            </motion.p>
+
+            <motion.p
+              className="text-gray-300 text-base md:text-lg leading-relaxed"
+              variants={textVariants}
+            >
+              I connect front-end and back-end seamlessly using RESTful APIs,
+              manage state efficiently with Redux, and focus on secure,
+              scalable, and responsive web apps.
+            </motion.p>
+
+            {/* 🔘 Skills List */}
+            <div>
+              <motion.h3
+                className="text-white text-2xl font-semibold mb-2"
+                variants={textVariants}
               >
-                <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-orange-400">
-                About Me
-                </h1>
-    
-                <h2 className="text-lg md:text-xl lg:text-2xl font-medium">
-                I'm a &nbsp;
-                  <span className="text-orange-400 font-semibold">MERN Stack Developer,</span>
-                </h2>
-    
-                <p className="text-gray-300 text-base md:text-lg leading-relaxed">
-                Hi, I'm Mohd Umar, a MERN Stack Developer from Noida, Uttar Pradesh, India. I enjoy building full-stack web applications that are fast, responsive, and user-friendly. My core skills include MongoDB, Express.js, React.js, and Node.js, and I love turning ideas into real, working websites.
-                </p>
-                <p className="text-gray-300 text-base md:text-lg ">
-                I'm confident in building full-stack applications using the MERN stack. I connect the front-end and back-end seamlessly using RESTful APIs, manage state efficiently with Redux, and focus on creating secure, scalable, and responsive web applications.
-                </p>
-    
-                {/* 🔗 Social Media Icons */}
-                {/* <SocialIcons /> */}
-    
-                {/* 🔘Skills */}
-                <div>
-              <h3 className="text-white text-2xl font-semibold mb-2">Skills</h3>
-              <ul className="text-white text-base list-none flex flex-wrap gap-4">
+                Skills
+              </motion.h3>
+              <motion.ul
+                className="flex flex-wrap gap-3"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+              >
                 {skills.map((skill, index) => (
-                  <li
+                  <motion.li
                     key={index}
-                    className="flex items-center gap-2 hover:bg-orange-600  transition-colors duration-300 cursor-default bg-orange-500 px-4 py-2 rounded-lg"
                     title={skill}
+                    className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-colors duration-300 cursor-default"
+                    variants={textVariants}
                   >
                     {skill}
-                  </li>
+                  </motion.li>
                 ))}
-              </ul>
+              </motion.ul>
             </div>
-              </aside>
-            </div>
-             {/* 🔹 Left: Profile with background */}
-             <div
-          className="flex items-center justify-center bg-cover p-10 bg-center relative"
+          </aside>
+        </motion.div>
+
+        {/* 🔸 Right: Content Section */}
+        <motion.div
+          className="flex items-center justify-center bg-cover bg-center p-10 relative"
           style={{ backgroundImage: `url(${bgImage})` }}
-          aria-label=" background section"
+          aria-label="background section"
+          initial="hidden"
+          animate="visible"
+          variants={avatarVariants}
         >
-            <AvatarCard />
-        </div>
-          </section>
-        </Container>
-      );
+          <AvatarCard />
+        </motion.div>
+      </section>
+    </Container>
+  );
 };
 
-export default AboutPage;
+export default React.memo(AboutPage);
