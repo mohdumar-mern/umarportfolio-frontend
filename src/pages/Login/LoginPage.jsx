@@ -6,7 +6,9 @@ import { toast } from "react-hot-toast";
 
 import Container from "../../components/UI/Container/Container";
 import Input from "../../components/UI/Input/Input";
-import { loginAdmin } from "../../features/Auth/authSlice";
+// import { loginAdmin, clearAuthError } from "../../features/Auth/authSlice";
+import {loginAdmin, clearAuthError} from "../../features/Auth/authSlice"
+
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -16,7 +18,7 @@ const LoginPage = () => {
     password: "",
   });
 
-  const { token, loading, error, message } = useSelector((state) => state.auth);
+  const { token, loading, error } = useSelector((state) => state.auth);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,16 +35,20 @@ const LoginPage = () => {
       toast.success("Login successful!");
       navigate("/dashboard");
     }
+  }, [token, navigate]);
+
+  useEffect(() => {
     if (error) {
       toast.error(error);
+      // Clear error after showing toast to prevent repeat
+      dispatch(clearAuthError());
     }
-  }, [token, error, navigate]);
+  }, [error, dispatch]);
 
   return (
     <Container>
-      <section className=" min-h-[80vh] w-full max-w-xl shadow-2xl flex items-center justify-center rounded-xl overflow-hidden">
-        {" "}
-        <div className="bg-black rounded-2xl shadow-xl  w-full">
+      <section className="min-h-[80vh] w-full max-w-xl shadow-2xl flex items-center justify-center rounded-xl overflow-hidden">
+        <div className="bg-black rounded-2xl shadow-xl w-full">
           <div className="p-8 md:p-10">
             <h2 className="text-3xl font-bold text-white mb-6 text-center flex items-center justify-center gap-2">
               <LogIn className="text-orange-500" />

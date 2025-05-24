@@ -36,8 +36,8 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className="w-64 bg-white border-r p-6 hidden sm:block">
-      <h2 className="text-2xl font-bold text-orange-600 mb-6 tracking-wide">
+    <aside className="w-64 bg-black border-r p-6 hidden sm:block">
+      <h2 className="text-2xl font-bold text-orange-500 mb-6 tracking-wide">
         Admin Panel
       </h2>
       <nav className="space-y-3">

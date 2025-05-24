@@ -1,12 +1,14 @@
-// DashboardHome.jsx
-import { UserCircle, Activity, CheckCircle } from "lucide-react";
+import { useNavigate} from "react-router-dom"
+import { UserCircle, Activity, CheckCircle } from "lucide-react"
+import AvatarCard from "../../../components/UI/card/AvatarCard";
 
 const DashboardHome = () => {
+  const navigate = useNavigate();
   return (
     <div className="text-gray-800 p-6 rounded-xl bg-white shadow-md space-y-6">
       <div className="text-2xl font-bold flex items-center gap-3">
-        <UserCircle className="text-primary w-8 h-8" />
-        Welcome back, Admin!
+      <AvatarCard size = "w-16 h-16" />
+        Welcome back, Umar!
       </div>
 
       <p className="text-gray-600 text-sm">
@@ -22,7 +24,8 @@ const DashboardHome = () => {
           <CheckCircle className="text-green-600" />
           <span>Review completed tasks</span>
         </div>
-        <div className="bg-yellow-100 p-4 rounded-lg shadow-sm flex items-center gap-3">
+        <div className="bg-yellow-100 p-4 rounded-lg shadow-sm flex items-center gap-3"         onClick={() => navigate("/dashboard/profile")}
+>
           <UserCircle className="text-yellow-600" />
           <span>Update your profile info</span>
         </div>
