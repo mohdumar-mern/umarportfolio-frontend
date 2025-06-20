@@ -6,7 +6,6 @@ import { CloudCog } from "lucide-react";
 const AvatarCard = ({ size = "w-64 h-64" }) => {
   const dispatch = useDispatch();
   const { avatar, loading, error } = useSelector((state) => state.profile);
-  console.log(avatar);
   
 
   useEffect(() => {
