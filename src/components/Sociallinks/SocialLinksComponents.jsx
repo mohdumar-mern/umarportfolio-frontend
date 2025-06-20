@@ -3,8 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchSocialLinks } from "../../features/Profile/profileSlice";
 import SocialLinksCard from "../UI/card/SocialLilnksCard";
 
-const SkeletonCircle = () => (
-  <div className="w-10 h-10 bg-gray-300 rounded-full animate-pulse" />
+const SkeletonCircle = ({ className = "" }) => (
+  <div
+    className={`w-10 h-10 bg-gray-300 rounded-full animate-pulse ${className}`}
+    role="status"
+    aria-label="Loading social link"
+  />
 );
 
 const SocialLinksComponents = ({ color }) => {
@@ -12,40 +16,42 @@ const SocialLinksComponents = ({ color }) => {
   const { socialLinks, loading, error } = useSelector((state) => state.profile);
 
   useEffect(() => {
-    dispatch(fetchSocialLinks());
-  }, [dispatch]);
+    if (!socialLinks) {
+      dispatch(fetchSocialLinks());
+    }
+  }, [dispatch, socialLinks]);
 
-  // 🔄 Loading
   if (loading) {
     return (
-      <div className="flex gap-3 mt-4">
-        {[...Array(5)].map((_, i) => (
+      <div className="flex gap-3 mt-4" aria-busy="true">
+        {Array.from({ length: 5 }).map((_, i) => (
           <SkeletonCircle key={i} />
         ))}
       </div>
     );
   }
 
-  // ❌ Error
   if (error) {
     return (
-      <div className="text-center text-red-500 mt-4">
+      <div
+        className="text-center text-red-500 mt-4"
+        role="alert"
+        aria-live="polite"
+      >
         Failed to load social links.
       </div>
     );
   }
 
-  // ⚠️ No Data
-  if (!socialLinks) {
+  if (!socialLinks || Object.keys(socialLinks).length === 0) {
     return (
-      <p className="text-center text-yellow-400 mt-10">
+      <p className="text-center text-yellow-400 mt-10" role="status">
         No social links available.
       </p>
     );
   }
 
-  // ✅ Success
   return <SocialLinksCard socialLinks={socialLinks} color={color} />;
 };
 
-export default SocialLinksComponents;
+export default React.memo(SocialLinksComponents);

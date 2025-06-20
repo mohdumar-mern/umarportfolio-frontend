@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Trash, Eye, Edit } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { fetchSkills, deleteSkill } from "../../../features/Skills/skillSlice";
-import Skeleton from "../../../components/UI/Skiliton/tableSkeleton";
+import Skeleton from "../../../components/UI/Skeleton/TableSkeleton";
 
 const SkillsList = () => {
   const dispatch = useDispatch();

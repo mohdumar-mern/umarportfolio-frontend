@@ -8,7 +8,8 @@ import profileReducer from "../features/Profile/profileSlice";
 import contactReducer from "../features/Contact/contactSlice";
 import authReducer from "../features/Auth/authSlice";
 
-const isDevelopment = import.meta.env.NODE_ENV === "development";
+const isDevelopment = import.meta.env.VITE_REACT_APP_NODE_ENV === "development";
+
 
 export const store = configureStore({
   reducer: {

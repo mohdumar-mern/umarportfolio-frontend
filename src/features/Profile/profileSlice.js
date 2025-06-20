@@ -39,20 +39,24 @@ export const fetchResume = createAsyncThunk(
   "profile/fetchResume",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_URL}profile/resume`, {
+      const res = await axios.get(`${API_URL}profile/resume`, {
         responseType: "blob",
       });
-      const fileBlob = new Blob([response.data], { type: response.headers['content-type'] });
 
-      const fileURL = URL.createObjectURL(fileBlob);
-      return fileURL;
-    } catch (error) {
-      return rejectWithValue(
-        error.response?.data?.message || "Failed to fetch resume"
-      );
+      const blob = new Blob([res.data], {
+        type: res.headers["content-type"] || "application/pdf",
+      });
+
+      const url = URL.createObjectURL(blob); // ✅ convert to URL
+      return url;
+    } catch (err) {
+      console.log(err)
+      return rejectWithValue("Failed to fetch resume");
     }
   }
 );
+
+
 
 // — Fetch Social Links
 export const fetchSocialLinks = createAsyncThunk(
@@ -161,9 +165,9 @@ const profileSlice = createSlice({
       })
       .addCase(fetchResume.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.resume = payload;
-        state.message = payload.message;
-      })
+        state.resume = payload; // now it's a serializable string URL
+        state.message = "Fetched resume successfully";
+      })      
       .addCase(fetchResume.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;

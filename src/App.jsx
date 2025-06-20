@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import LayoutComponents from "./components/Layout/Layout";
-import HeroPage from"./pages/HeroSection/HeroPage";
+import HeroPage from "./pages/HeroSection/HeroPage";
 
 // Lazy loaded pages
 const AboutPage = lazy(() => import("./pages/AboutPage/AboutPage"));
@@ -14,27 +14,61 @@ const LoginPage = lazy(() => import("./pages/Login/LoginPage"));
 
 // Lazy loaded dashboard components
 const ProtectedRoute = lazy(() => import("./routes/ProtectedRoute"));
-const DashboardLayout = lazy(() => import("./private/Dashboard/DashboardLayut/DashboardLayout"));
-const DashboardHome = lazy(() => import("./private/Dashboard/DashboardHome/DashboardHome"));
-const ProjectList = lazy(() => import("./private/Dashboard/project/ProjectList"));
-const ProjctDetail = lazy(() => import("./private/Dashboard/project/ProjectDetails"));
-const ProjectAddUpdate = lazy(() => import("./private/Dashboard/project/ProjectAddAndUpdate"));
+const DashboardLayout = lazy(() =>
+  import("./private/Dashboard/DashboardLayut/DashboardLayout")
+);
+const DashboardHome = lazy(() =>
+  import("./private/Dashboard/DashboardHome/DashboardHome")
+);
+const ProjectList = lazy(() =>
+  import("./private/Dashboard/project/ProjectList")
+);
+const ProjctDetail = lazy(() =>
+  import("./private/Dashboard/project/ProjectDetails")
+);
+const ProjectAddUpdate = lazy(() =>
+  import("./private/Dashboard/project/ProjectAddAndUpdate")
+);
 const SkillsList = lazy(() => import("./private/Dashboard/Skills/SkillList"));
-const SkillDetail = lazy(() => import("./private/Dashboard/Skills/SkillDetail"));
-const AddAndUpdateSkill = lazy(() => import("./private/Dashboard/Skills/AddAndUpdateSkill"));
-const ServicesList = lazy(() => import("./private/Dashboard/Services/ServicesList"));
-const AddService = lazy(() => import("./private/Dashboard/Services/AddService"));
-const ServiceDetail = lazy(() => import("./private/Dashboard/Services/ServiceDetail"));
-const ContactList = lazy(() => import("./private/Dashboard/contact/ContactList"));
-const ContactDetail = lazy(() => import("./private/Dashboard/contact/ContactDetail"));
-const ProfileDetail = lazy(() => import("./private/Dashboard/Profile/ProfileDetail"));
-const UpdateProfile = lazy(() => import("./private/Dashboard/Profile/UpdateProfile"));
+const SkillDetail = lazy(() =>
+  import("./private/Dashboard/Skills/SkillDetail")
+);
+const AddAndUpdateSkill = lazy(() =>
+  import("./private/Dashboard/Skills/AddAndUpdateSkill")
+);
+const ServicesList = lazy(() =>
+  import("./private/Dashboard/Services/ServicesList")
+);
+const AddService = lazy(() =>
+  import("./private/Dashboard/Services/AddService")
+);
+const ServiceDetail = lazy(() =>
+  import("./private/Dashboard/Services/ServiceDetail")
+);
+const ContactList = lazy(() =>
+  import("./private/Dashboard/contact/ContactList")
+);
+const ContactDetail = lazy(() =>
+  import("./private/Dashboard/contact/ContactDetail")
+);
+const ProfileDetail = lazy(() =>
+  import("./private/Dashboard/Profile/ProfileDetail")
+);
+const UpdateProfile = lazy(() =>
+  import("./private/Dashboard/Profile/UpdateProfile")
+);
 
 const App = () => (
   <Router>
     <LayoutComponents>
       <Toaster position="top-right" reverseOrder={false} />
-      <Suspense fallback={<div className="flex justify-center items-center h-screen"><div className="animate-spin rounded-full h-16 w-16 border-t-4 border-orange-500"></div></div>}>
+      <Suspense
+        fallback={
+          <div className="flex justify-center items-center h-screen">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-orange-500"></div>
+          </div>
+        }
+      >
         <Routes>
           <Route path="/" element={<HeroPage />} />
           <Route path="/about" element={<AboutPage />} />

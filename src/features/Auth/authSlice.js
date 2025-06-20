@@ -4,7 +4,7 @@ import axios from 'axios';
 const API_URL = import.meta.env.VITE_REACT_APP_BACKEND_API_URL;
 
 const initialState = {
-  token: JSON.parse(localStorage.getItem('token')) || null,
+  token: localStorage.getItem('token')|| null,
   loading: false,
   error: null,
   message: null,

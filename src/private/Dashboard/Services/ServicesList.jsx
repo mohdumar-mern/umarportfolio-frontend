@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Trash, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import Skeleton from "../../../components/UI/Skiliton/tableSkeleton";
 import {
   deleteservice,
   fetchServices,
 } from "../../../features/service/serviceSlice";
+import Skeleton from "../../../components/UI/Skeleton/TableSkeleton";
 
 const ServicesList = () => {
   const dispatch = useDispatch();

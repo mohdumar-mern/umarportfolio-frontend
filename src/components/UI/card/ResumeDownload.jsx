@@ -12,29 +12,33 @@ const ResumeDownload = () => {
   const { resume, error, loading } = useSelector((state) => state.profile);
 
   useEffect(() => {
-    dispatch(fetchResume());
-  }, [dispatch]);
+    if (!resume) {
+      dispatch(fetchResume());
+    }
+  }, [dispatch, resume]);
+
+  const handleDownload = () => {
+    if (resume) {
+      window.open(resume, "_blank", "noopener,noreferrer");
+    } else {
+      console.error("Resume URL is not available.");
+    }
+  };
 
   return (
     <div className="text-center">
-      {/* 🔄 Show skeleton while loading */}
       {loading && <SkeletonBlock width="w-32" height="h-10" />}
-
-      {/* ❌ Show error if available */}
       {error && !loading && (
-        <p className="text-red-500 text-sm mt-2">Failed to load resume</p>
+        <p className="text-red-500 text-sm mt-2">❌ Failed to load resume</p>
       )}
-
-      {/* ✅ Resume Download Button */}
       {!loading && resume && (
-        <a
-          href={resume}
-          download="Mohd_Umar_Resume.pdf"
-          target="_blank" rel="noopener noreferrer"
+        <button
+          onClick={handleDownload}
           className="inline-block bg-orange-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-orange-600 transition-colors duration-300 ease-in-out"
+          aria-label="View Mohd Umar Resume"
         >
-          Download Resume
-        </a>
+          Resume
+        </button>
       )}
     </div>
   );

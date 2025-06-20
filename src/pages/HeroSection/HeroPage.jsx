@@ -33,6 +33,7 @@ const avatarHover = {
   boxShadow: "0 0 20px rgb(255, 140, 0)",
   transition: { duration: 0.5, yoyo: Infinity, ease: "easeInOut" },
 };
+console.log(`Backend api ${import.meta.env.VITE_REACT_APP_BACKEND_API_URL}`)
 
 const Home = () => {
   return (
@@ -101,7 +102,7 @@ const Home = () => {
             </motion.div>
 
             {/* Buttons with hover animations */}
-            <motion.div className="flex flex-wrap gap-4 pt-2" variants={fadeSlideUp}>
+            <motion.div className="flex flex-wrap  items-center gap-4 pt-2" variants={fadeSlideUp}>
               <motion.div whileHover={buttonHover}>
                 <ResumeDownload />
               </motion.div>

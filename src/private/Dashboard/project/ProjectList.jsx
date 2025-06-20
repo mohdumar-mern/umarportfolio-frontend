@@ -8,9 +8,8 @@ import {
   clearError,
   clearMessage,
 } from "../../../features/Project/projectSlice";
-
 import Pagination from "../../../components/UI/pagination/Pagination";
-import Skeleton from "../../../components/UI/Skiliton/tableSkeleton";
+import Skeleton from "../../../components/UI/Skeleton/TableSkeleton";
 
 const ProjectList = () => {
   const dispatch = useDispatch();

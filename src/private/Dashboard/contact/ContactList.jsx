@@ -7,8 +7,8 @@ import {
   fetchContacts,
   clearContactStatus,
 } from "../../../features/Contact/contactSlice";
-import Skeleton from "../../../components/UI/Skiliton/tableSkeleton";
 import Pagination from "../../../components/UI/pagination/Pagination";
+import Skeleton from "../../../components/UI/Skeleton/TableSkeleton";
 
 
 const ContactList = () => {
