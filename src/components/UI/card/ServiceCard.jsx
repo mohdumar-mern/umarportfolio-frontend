@@ -3,7 +3,7 @@ import { Code } from "lucide-react"; // fallback icon
 
 const ServiceCard = ({ title, category, imageUrl, description, status }) => {
   return (
-    <div className="bg-[#0F0F0F] rounded-2xl border border-orange-500 shadow-[inset_0_-2px_4px_rgba(255,255,255,0.1),8px_8px_20px_rgba(249,115,22,0.3),-8px_-8px_20px_rgba(255,255,255,0.03)] transition-all duration-500 hover:scale-[1.03] hover:shadow-[inset_0_-2px_4px_rgba(255,255,255,0.1),12px_12px_30px_rgba(249,115,22,0.5),-12px_-12px_30px_rgba(255,255,255,0.05)] transform min-h-80">
+    <div className="bg-[#0F0F0F] rounded-2xl w-64 border border-orange-500 shadow-[inset_0_-2px_4px_rgba(255,255,255,0.1),8px_8px_20px_rgba(249,115,22,0.3),-8px_-8px_20px_rgba(255,255,255,0.03)] transition-all duration-500 hover:scale-[1.03] hover:shadow-[inset_0_-2px_4px_rgba(255,255,255,0.1),12px_12px_30px_rgba(249,115,22,0.5),-12px_-12px_30px_rgba(255,255,255,0.05)] transform min-h-80">
       <div className="flex items-center justify-center pt-6">
         {imageUrl ? (
           <img

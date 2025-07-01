@@ -1,37 +1,70 @@
-import { useNavigate} from "react-router-dom"
-import { UserCircle, Activity, CheckCircle } from "lucide-react"
+import React, { memo, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserCircle, Activity, CheckCircle } from "lucide-react";
 import AvatarCard from "../../../components/UI/card/AvatarCard";
+import { Helmet } from "react-helmet";
+
+const DashboardCard = ({ icon: Icon, text, bg, color, onClick }) => (
+  <button
+    onClick={onClick}
+    className={`p-4 rounded-lg shadow-sm flex items-center gap-3 w-full text-left transition hover:brightness-95 focus:outline-none ${bg}`}
+    aria-label={text}
+  >
+    <Icon className={`${color}`} />
+    <span className="text-sm text-gray-800">{text}</span>
+  </button>
+);
 
 const DashboardHome = () => {
   const navigate = useNavigate();
+
+  const goToProfile = useCallback(() => {
+    navigate("/dashboard/profile");
+  }, [navigate]);
+
   return (
-    <div className="text-gray-800 p-6 rounded-xl bg-white shadow-md space-y-6">
-      <div className="text-2xl font-bold flex items-center gap-3">
-      <AvatarCard size = "w-16 h-16" />
-        Welcome back, Umar!
-      </div>
+    <>
+      <Helmet>
+        <title>Dashboard | Mohd Umar</title>
+        <meta name="description" content="Admin dashboard overview page for Mohd Umar's portfolio." />
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
 
-      <p className="text-gray-600 text-sm">
-        Here's a quick snapshot of your dashboard. Manage your portfolio, track your activity, and stay up to date — all in one place.
-      </p>
+      <section className="p-6 rounded-xl bg-white shadow-md space-y-6 text-gray-800">
+        <div className="text-2xl font-bold flex items-center gap-3">
+          <AvatarCard size="w-16 h-16" />
+          Welcome back, Umar!
+        </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
-        <div className="bg-indigo-100 p-4 rounded-lg shadow-sm flex items-center gap-3">
-          <Activity className="text-indigo-600" />
-          <span>Monitor recent activity</span>
+        <p className="text-gray-600 text-sm">
+          Here's a quick snapshot of your dashboard. Manage your portfolio, track your activity,
+          and stay up to date — all in one place.
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <DashboardCard
+            icon={Activity}
+            text="Monitor recent activity"
+            bg="bg-indigo-100"
+            color="text-indigo-600"
+          />
+          <DashboardCard
+            icon={CheckCircle}
+            text="Review completed tasks"
+            bg="bg-green-100"
+            color="text-green-600"
+          />
+          <DashboardCard
+            icon={UserCircle}
+            text="Update your profile info"
+            bg="bg-yellow-100"
+            color="text-yellow-600"
+            onClick={goToProfile}
+          />
         </div>
-        <div className="bg-green-100 p-4 rounded-lg shadow-sm flex items-center gap-3">
-          <CheckCircle className="text-green-600" />
-          <span>Review completed tasks</span>
-        </div>
-        <div className="bg-yellow-100 p-4 rounded-lg shadow-sm flex items-center gap-3"         onClick={() => navigate("/dashboard/profile")}
->
-          <UserCircle className="text-yellow-600" />
-          <span>Update your profile info</span>
-        </div>
-      </div>
-    </div>
+      </section>
+    </>
   );
 };
 
-export default DashboardHome;
+export default memo(DashboardHome);

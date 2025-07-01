@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Mail, Phone, User, MessageSquareText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { motion } from "framer-motion";  // <-- import motion
+import { motion } from "framer-motion";
+import { Helmet } from "react-helmet";
 
 import bgImage from "../../assets/bgImg.jpg";
 
@@ -74,136 +75,140 @@ const ContactPage = () => {
     };
   }, [dispatch]);
 
-  // Animation variants
   const sectionVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
 
   const buttonVariants = {
-    hover: {
-      scale: 1.05,
-      transition: { duration: 0.3, yoyo: Infinity },
-    },
+    hover: { scale: 1.05, transition: { duration: 0.3 } },
   };
 
   return (
-    <Container>
-      <section className="grid grid-cols-1 lg:grid-cols-2 min-h-[80vh] w-full shadow-2xl rounded-xl overflow-hidden">
-        {/* Form Section */}
-        <motion.div
-          className="bg-black px-6 lg:px-12 py-12"
-          initial="hidden"
-          animate="visible"
-          variants={sectionVariants}
-        >
-          <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-2 justify-center">
-            <Phone className="text-orange-500" />
-            Contact Us
-          </h2>
+    <>
+      {/* 🔹 SEO */}
+      <Helmet>
+        <title>Contact | Mohd Umar - MERN Stack Developer</title>
+        <meta name="description" content="Get in touch with Mohd Umar. Send your queries or project requests directly via the contact form." />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://umarportfolio-frontend.vercel.app/contact" />
+        <meta property="og:title" content="Contact Mohd Umar" />
+        <meta property="og:description" content="Reach out to Mohd Umar via email or phone. Available for freelance MERN Stack development work." />
+        <meta property="og:type" content="website" />
+      </Helmet>
 
-          <form onSubmit={handleSubmit} className="space-y-5 max-w-md mx-auto">
-            {formError && (
-              <p className="text-red-500 text-center">{formError}</p>
-            )}
+      <Container>
+        <section className="grid grid-cols-1 lg:grid-cols-2 min-h-[80vh] w-full shadow-2xl rounded-xl overflow-hidden">
+          {/* 📝 Form Section */}
+          <motion.div
+            className="bg-black px-6 lg:px-12 py-12"
+            initial="hidden"
+            animate="visible"
+            variants={sectionVariants}
+          >
+            <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-2 justify-center">
+              <Phone className="text-orange-500" />
+              Contact Us
+            </h2>
 
-            <Input
-              label="Full Name"
-              name="name"
-              placeholder="Enter your name"
-              value={formData.name}
-              onChange={handleChange}
-              icon={User}
-            />
-            <Input
-              label="Email Address"
-              name="email"
-              type="email"
-              placeholder="Enter your Email"
-              value={formData.email}
-              onChange={handleChange}
-              icon={Mail}
-            />
-            <Input
-              label="Phone Number"
-              name="phone"
-              type="tel"
-              placeholder="Enter your phone number"
-              value={formData.phone}
-              onChange={handleChange}
-              icon={Phone}
-            />
+            <form onSubmit={handleSubmit} className="space-y-5 max-w-md mx-auto">
+              {formError && (
+                <p className="text-red-500 text-center">{formError}</p>
+              )}
 
-            <div>
-              <label className="block text-sm font-semibold text-[#BDC3C7] mb-2">
-                Message
-              </label>
-              <div className="relative">
-                <MessageSquareText className="absolute left-3 top-3 text-orange-500 w-5 h-5" />
-                <textarea
-                  name="message"
-                  rows="4"
-                  value={formData.message}
-                  placeholder="Type your message..."
-                  onChange={handleChange}
-                  className="w-full pl-10 pr-4 py-2 border text-gray-300 bg-transparent border-orange-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition resize-none"
-                />
+              <Input
+                label="Full Name"
+                name="name"
+                placeholder="Enter your name"
+                value={formData.name}
+                onChange={handleChange}
+                icon={User}
+              />
+              <Input
+                label="Email Address"
+                name="email"
+                type="email"
+                placeholder="Enter your email"
+                value={formData.email}
+                onChange={handleChange}
+                icon={Mail}
+              />
+              <Input
+                label="Phone Number"
+                name="phone"
+                type="tel"
+                placeholder="Enter your phone number"
+                value={formData.phone}
+                onChange={handleChange}
+                icon={Phone}
+              />
+
+              <div>
+                <label htmlFor="message" className="block text-sm font-semibold text-[#BDC3C7] mb-2">
+                  Message
+                </label>
+                <div className="relative">
+                  <MessageSquareText className="absolute left-3 top-3 text-orange-500 w-5 h-5" />
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="4"
+                    value={formData.message}
+                    placeholder="Type your message..."
+                    onChange={handleChange}
+                    className="w-full pl-10 pr-4 py-2 border text-gray-300 bg-transparent border-orange-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition resize-none"
+                  />
+                </div>
+              </div>
+
+              <motion.button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-orange-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-orange-600 transition disabled:opacity-50"
+                variants={buttonVariants}
+                whileHover="hover"
+              >
+                {loading ? "Sending..." : "Send Message"}
+              </motion.button>
+            </form>
+          </motion.div>
+
+          {/* 📞 Info Section */}
+          <motion.div
+            className="flex flex-col items-center justify-center bg-cover p-10 bg-center gap-4 relative"
+            style={{ backgroundImage: `url(${bgImage})` }}
+            aria-label="Contact Information Section"
+            initial="hidden"
+            animate="visible"
+            variants={sectionVariants}
+            transition={{ delay: 0.3 }}
+          >
+            <AvatarCard size="w-20 h-20" />
+
+            <div className="text-center text-white space-y-1">
+              <div>
+                Phone: <a href="tel:9628787975" className="underline">9628787975</a>
+              </div>
+              <div>
+                Email: <a href="mailto:uk1941404@gmail.com" className="underline">uk1941404@gmail.com</a>
               </div>
             </div>
 
-            <motion.button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-orange-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-orange-600 transition disabled:opacity-50"
-              variants={buttonVariants}
-              whileHover="hover"
-            >
-              {loading ? "Sending..." : "Send Message"}
-            </motion.button>
-          </form>
-        </motion.div>
+            <SocialLinksComponents color="bg-black" />
 
-        {/* Contact Info Section */}
-        <motion.div
-          className="flex flex-col items-center justify-center bg-cover p-10 bg-center gap-4 relative"
-          style={{ backgroundImage: `url(${bgImage})` }}
-          aria-label="background section"
-          initial="hidden"
-          animate="visible"
-          variants={sectionVariants}
-          transition={{ delay: 0.3 }}
-        >
-          <AvatarCard size="w-20 h-20" />
-
-          <div className="text-center text-white space-y-1">
-            <div>
-              Phone:{" "}
-              <a href="tel:9628787975" className="underline">
-                9628787975
-              </a>
+            <div className="flex gap-4">
+              <ResumeDownload />
+              <Link
+                to="/contact"
+                className="border border-black bg-white text-black font-medium px-4 py-2 rounded-lg hover:bg-black hover:text-orange-500 transition"
+              >
+                Contact Me
+              </Link>
             </div>
-            <div>
-              Email:{" "}
-              <a href="mailto:uk1941404@gmail.com" className="underline">
-                uk1941404@gmail.com
-              </a>
-            </div>
-          </div>
-
-          <SocialLinksComponents color="bg-black" />
-
-          <div className="flex gap-4">
-            <ResumeDownload />
-            <Link
-              to="/contact"
-              className="border border-black bg-white text-black font-medium px-4 py-2 rounded-lg hover:bg-black hover:text-orange-500 transition"
-            >
-              Contact Me
-            </Link>
-          </div>
-        </motion.div>
-      </section>
-    </Container>
+          </motion.div>
+        </section>
+      </Container>
+    </>
   );
 };
 

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { ChevronLeft, Cog, Image } from "lucide-react"; // ✅ Fixed import
+import { ChevronLeft, Cog, Image } from "lucide-react";
+import { Helmet } from "react-helmet";
 
 import { addService } from "../../../features/service/serviceSlice";
 import Input from "../../../components/UI/Input/Input";
@@ -32,38 +33,46 @@ const AddService = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const data = new FormData();
     data.append("title", formData.title);
     data.append("description", formData.description);
     data.append("file", formData.file);
     data.append("category", formData.category);
     data.append("status", formData.status);
-  
+
     dispatch(addService(data))
       .unwrap()
-      .then(() => {
-        navigate("/dashboard/services");
-      })
+      .then(() => navigate("/dashboard/services"))
       .catch((err) => {
         console.error("Failed to add service:", err);
       });
   };
-  
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-black rounded-lg shadow">
-      <button
-        onClick={() => navigate("/dashboard/skills")}
-        className="text-white font-semibold text-lg mb-4 inline-flex items-center"
-      >
-        <ChevronLeft className="mr-1" />
-        Back to Skills
-      </button>
-      <h2 className="text-2xl font-semibold mb-4 text-orange-500">Add Service</h2>
+    <>
+      <Helmet>
+        <title>Add Service | Admin Dashboard</title>
+        <meta
+          name="description"
+          content="Add a new service to the dashboard. Upload image, set category and status."
+        />
+      </Helmet>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
+      <div className="max-w-md mx-auto p-6 bg-black rounded-lg shadow text-white">
+        <button
+          onClick={() => navigate("/dashboard/services")}
+          className="text-white font-semibold text-lg mb-4 inline-flex items-center"
+        >
+          <ChevronLeft className="mr-1" />
+          Back to Services
+        </button>
+
+        <h2 className="text-2xl font-semibold mb-6 text-orange-500">
+          Add New Service
+        </h2>
+
+        <form onSubmit={handleSubmit} className="space-y-5">
           <Input
             label="Service Title"
             placeholder="Enter service title"
@@ -73,79 +82,81 @@ const AddService = () => {
             onChange={handleChange}
             required
             icon={Cog}
-            className="w-full border border-gray-300 rounded p-2"
           />
-        </div>
 
-        <div>
-          <label className="block mb-1 text-gray-700">Description</label>
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            placeholder="Enter service description"
-            required
-            className="w-full bg-black border border-orange-500 rounded-lg p-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
-            rows="4"
-          ></textarea>
-        </div>
+          <div>
+            <label className="block mb-1 text-[#BDC3C7]">Description</label>
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              placeholder="Enter service description"
+              required
+              className="w-full bg-black border border-orange-500 rounded-lg p-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+              rows="4"
+            ></textarea>
+          </div>
 
-        <div>
           <Input
-            label="Skill Image"
+            label="Service Image"
             type="file"
             name="file"
             onChange={handleFileChange}
             accept="image/*"
+            required
             icon={Image}
-            required
           />
-        </div>
 
-        <div>
-          <label className="block mb-1 text-[#BDC3C7]">Category</label>
-          <select
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-            required
-            className="w-full bg-black border border-orange-500 rounded-lg p-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
-          >
-            {categories.map((cat) => (
-              <option key={cat} value={cat} className="bg-black text-orange-500">
-                {cat}
+          <div>
+            <label className="block mb-1 text-[#BDC3C7]">Category</label>
+            <select
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+              required
+              className="w-full bg-black border border-orange-500 rounded-lg p-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+            >
+              {categories.map((cat) => (
+                <option key={cat} value={cat} className="bg-black text-orange-500">
+                  {cat}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="block mb-1 text-[#BDC3C7]">Status</label>
+            <select
+              name="status"
+              value={formData.status}
+              onChange={handleChange}
+              className="w-full bg-black border border-orange-500 rounded-lg p-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+            >
+              <option value="active" className="bg-black text-orange-500">
+                Active
               </option>
-            ))}
-          </select>
-        </div>
+              <option value="inactive" className="bg-black text-orange-500">
+                Inactive
+              </option>
+            </select>
+          </div>
 
-        <div>
-          <label className="block mb-1 text-[#BDC3C7]">Status</label>
-          <select
-            name="status"
-            value={formData.status}
-            onChange={handleChange}
-            className="w-full bg-black border border-orange-500 rounded-lg p-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+          <button
+            type="submit"
+            className="w-full bg-orange-500 text-white py-2 rounded hover:bg-orange-600 transition disabled:opacity-50"
+            disabled={loading}
           >
-            <option value="active" className="bg-black text-orange-500">
-              Active
-            </option>
-            <option value="inactive" className="bg-black text-orange-500">
-              Inactive
-            </option>
-          </select>
-        </div>
+            {loading ? "Adding..." : "Add Service"}
+          </button>
+        </form>
 
-        <button
-          type="submit"
-          className="w-full bg-orange-500 text-white py-2 rounded hover:bg-orange-600"
-        >
-          {loading ? "Adding..." : "Add Service"}
-        </button>
-      </form>
-
-      {message && <p className="mt-4 text-center text-red-600">{message}</p>}
-    </div>
+        {message && (
+          <p className="mt-4 text-center text-green-500 font-medium">
+            {message}
+          </p>
+        )}
+      </div>
+    </>
   );
 };
 

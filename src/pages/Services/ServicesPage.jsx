@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchServices } from "../../features/service/serviceSlice";
 import Container from "../../components/UI/Container/Container";
 import ServiceCard from "../../components/UI/card/ServiceCard";
+import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 
 const ServicesPage = () => {
@@ -33,70 +34,119 @@ const ServicesPage = () => {
   };
 
   return (
-    <Container>
-      <motion.section
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
-        className="w-full min-h-screen py-12 px-4 sm:px-6 lg:px-8"
-      >
-        {/* Header */}
-        <motion.div variants={cardVariants} className="text-center my-12">
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-2">
-            My <span className="text-orange-500">Services</span>
-          </h1>
-          <p className="text-[#BDC3C7] text-sm sm:text-base">
-            The services I offer to help clients achieve their digital goals.
-          </p>
-        </motion.div>
+    <>
+      {/* 🔹 SEO Meta Tags */}
+      <Helmet>
+        <title>Services | Mohd Umar - MERN Stack Developer</title>
+        <meta
+          name="description"
+          content="Explore the professional web development services offered by Mohd Umar, including full-stack development, API integration, and responsive design."
+        />
+        <meta name="robots" content="index, follow" />
+        <html lang="en" />
 
-        {/* Error */}
-        {error && (
-          <motion.p
-            variants={cardVariants}
-            className="text-red-500 text-center mb-6 text-lg font-semibold"
+        {/* 🔸 Structured Data */}
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "Service",
+              "provider": {
+                "@type": "Person",
+                "name": "Mohd Umar",
+                "url": "https://umarportfolio-frontend.vercel.app"
+              },
+              "serviceType": "Web Development",
+              "areaServed": {
+                "@type": "Place",
+                "name": "India"
+              },
+              "hasOfferCatalog": {
+                "@type": "OfferCatalog",
+                "name": "Web Services",
+                "itemListElement": ${JSON.stringify(
+                  services.map((service) => ({
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": service.title,
+                      "description": service.description
+                    }
+                  }))
+                )}
+              }
+            }
+          `}
+        </script>
+      </Helmet>
+
+      <Container>
+        <main>
+          <motion.section
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+            className="w-full min-h-screen py-12 px-4 sm:px-6 lg:px-8"
           >
-            {error}
-          </motion.p>
-        )}
+            {/* 🔸 Header */}
+            <motion.header variants={cardVariants} className="text-center my-12">
+              <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-2">
+                My <span className="text-orange-500">Services</span>
+              </h1>
+              <p className="text-[#BDC3C7] text-sm sm:text-base">
+                The services I offer to help clients achieve their digital goals.
+              </p>
+            </motion.header>
 
-        {/* Services Grid */}
-        <motion.div
-          variants={containerVariants}
-          className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
-        >
-          {!loading && services.length > 0 ? (
-            services.map((service) => (
-              <motion.div key={service._id} variants={cardVariants}>
-                <ServiceCard
-                  title={service.title}
-                  category={service.category}
-                  imageUrl={service?.file?.url}
-                  description={service.description}
-                />
-              </motion.div>
-            ))
-          ) : (
-            !loading && (
+            {/* ❌ Error */}
+            {error && (
               <motion.p
                 variants={cardVariants}
-                className="text-white text-center col-span-full mt-8"
+                className="text-red-500 text-center mb-6 text-lg font-semibold"
               >
-                No services available at the moment.
+                {error}
               </motion.p>
-            )
-          )}
-        </motion.div>
+            )}
 
-        {/* Loader */}
-        {loading && (
-          <div className="text-center mt-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500 mx-auto"></div>
-            <p className="text-gray-400 mt-2">Loading Services...</p>
-          </div>
-        )}
-      </motion.section>
-    </Container>
+            {/* ✅ Services Grid */}
+            <motion.div
+              variants={containerVariants}
+              className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+            >
+              {!loading && services.length > 0 ? (
+                services.map((service) => (
+                  <motion.div key={service._id} variants={cardVariants}>
+                    <ServiceCard
+                      title={service.title}
+                      category={service.category}
+                      imageUrl={service?.file?.url}
+                      description={service.description}
+                    />
+                  </motion.div>
+                ))
+              ) : (
+                !loading && (
+                  <motion.p
+                    variants={cardVariants}
+                    className="text-white text-center col-span-full mt-8"
+                  >
+                    No services available at the moment.
+                  </motion.p>
+                )
+              )}
+            </motion.div>
+
+            {/* 🔁 Loader */}
+            {loading && (
+              <div className="text-center mt-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500 mx-auto"></div>
+                <p className="text-gray-400 mt-2">Loading Services...</p>
+              </div>
+            )}
+          </motion.section>
+        </main>
+      </Container>
+    </>
   );
 };
 

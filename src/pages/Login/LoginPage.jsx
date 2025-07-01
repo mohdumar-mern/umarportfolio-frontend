@@ -1,34 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Mail, LogIn, Lock } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { Helmet } from "react-helmet";
 
 import Container from "../../components/UI/Container/Container";
 import Input from "../../components/UI/Input/Input";
-// import { loginAdmin, clearAuthError } from "../../features/Auth/authSlice";
-import {loginAdmin, clearAuthError} from "../../features/Auth/authSlice"
+import { loginAdmin, clearAuthError } from "../../features/Auth/authSlice";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formError, setFormError] = useState(null);
 
   const { token, loading, error } = useSelector((state) => state.auth);
 
-  const handleChange = (e) => {
+  const handleChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormError(null);
+  }, []);
+
+  const validateForm = () => {
+    if (!formData.email || !formData.password) {
+      return "Please fill in both email and password.";
+    }
+    return null;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(loginAdmin(formData));
-  };
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      const validationError = validateForm();
+      if (validationError) {
+        setFormError(validationError);
+        return;
+      }
+      dispatch(loginAdmin(formData));
+    },
+    [dispatch, formData]
+  );
 
   useEffect(() => {
     if (token) {
@@ -40,21 +54,35 @@ const LoginPage = () => {
   useEffect(() => {
     if (error) {
       toast.error(error);
-      // Clear error after showing toast to prevent repeat
       dispatch(clearAuthError());
     }
   }, [error, dispatch]);
 
   return (
-    <Container>
-      <section className="min-h-[80vh] w-full max-w-xl shadow-2xl flex items-center justify-center rounded-xl overflow-hidden">
-        <div className="bg-black rounded-2xl shadow-xl w-full">
-          <div className="p-8 md:p-10">
+    <>
+      <Helmet>
+        <title>Login | Mohd Umar - Admin Access</title>
+        <meta
+          name="description"
+          content="Login to access the admin dashboard of Mohd Umar's MERN stack application."
+        />
+        <meta name="robots" content="noindex, nofollow" />
+        <link rel="canonical" href="https://umarportfolio-frontend.vercel.app/login" />
+      </Helmet>
+
+      <Container>
+        <section className="min-h-[80vh] w-full max-w-xl mx-auto flex items-center justify-center">
+          <div className="bg-black w-full shadow-2xl rounded-xl p-8 md:p-10">
             <h2 className="text-3xl font-bold text-white mb-6 text-center flex items-center justify-center gap-2">
               <LogIn className="text-orange-500" />
               Login
             </h2>
+
             <form onSubmit={handleSubmit} className="space-y-5">
+              {formError && (
+                <p className="text-red-500 text-center">{formError}</p>
+              )}
+
               <Input
                 label="Email Address"
                 name="email"
@@ -68,7 +96,7 @@ const LoginPage = () => {
                 label="Password"
                 name="password"
                 type="password"
-                placeholder="*********"
+                placeholder="********"
                 value={formData.password}
                 onChange={handleChange}
                 icon={Lock}
@@ -86,9 +114,9 @@ const LoginPage = () => {
               </button>
             </form>
           </div>
-        </div>
-      </section>
-    </Container>
+        </section>
+      </Container>
+    </>
   );
 };
 

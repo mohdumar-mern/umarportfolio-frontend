@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet";
 
 import bgImage from "../../assets/bgImg.jpg";
 import Container from "../../components/UI/Container/Container";
@@ -36,89 +37,128 @@ const avatarHover = {
 
 const Home = () => {
   return (
-    <Container>
-      <section className="grid grid-cols-1 lg:grid-cols-2 min-h-[80vh] w-full shadow-2xl rounded-xl overflow-hidden">
-        {/* 🔹 Left: Profile with background and animated AvatarCard */}
-        <motion.div
-          className="flex items-center justify-center bg-cover p-10 bg-center relative"
-          style={{ backgroundImage: `url(${bgImage})` }}
-          aria-label="background section"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.2 }}
-        >
+    <>
+      {/* 🔹 SEO Meta Tags */}
+      <Helmet>
+        <title>Mohd Umar | MERN Stack Developer Portfolio</title>
+        <meta
+          name="description"
+          content="Mohd Umar is a MERN Stack Developer from Noida. Explore full-stack projects, skills, resume, and services."
+        />
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <html lang="en" />
+
+        {/* Optional: Structured Data */}
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Mohd Umar",
+              "url": "https://umarportfolio-frontend.vercel.app",
+              "sameAs": [
+                "https://github.com/yourusername",
+                "https://linkedin.com/in/yourprofile"
+              ],
+              "jobTitle": "MERN Stack Developer",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Noida",
+                "addressRegion": "Uttar Pradesh",
+                "addressCountry": "India"
+              }
+            }
+          `}
+        </script>
+      </Helmet>
+
+      <Container>
+        <section className="grid grid-cols-1 lg:grid-cols-2 min-h-[80vh] w-full shadow-2xl rounded-xl overflow-hidden">
+          {/* 🔹 Left: Avatar Card with background */}
           <motion.div
-            whileHover={avatarHover}
-            initial={{ scale: 1 }}
-            animate={{ scale: 1 }}
+            className="flex items-center justify-center bg-cover p-10 bg-center relative"
+            style={{ backgroundImage: `url(${bgImage})` }}
+            aria-label="background section"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.2 }}
           >
-            <AvatarCard />
+            <motion.div
+              whileHover={avatarHover}
+              initial={{ scale: 1 }}
+              animate={{ scale: 1 }}
+            >
+              <AvatarCard />
+            </motion.div>
           </motion.div>
-        </motion.div>
 
-        {/* 🔸 Right: Content with staggered fade and slide-up animation */}
-        <motion.div
-          className="flex items-center justify-center bg-black px-6 lg:px-12 py-12"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.aside className="space-y-6 max-w-xl text-white">
-            <motion.h1
-              className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-orange-400"
-              variants={fadeSlideUp}
-            >
-              Hi, I'm Mohd Umar
-            </motion.h1>
+          {/* 🔸 Right: Text and buttons */}
+          <motion.div
+            className="flex items-center justify-center bg-black px-6 lg:px-12 py-12"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.aside className="space-y-6 max-w-xl text-white">
+              <motion.h1
+                className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-orange-400"
+                variants={fadeSlideUp}
+              >
+                Hi, I'm Mohd Umar
+              </motion.h1>
 
-            <motion.h2
-              className="text-lg md:text-xl lg:text-2xl font-medium"
-              variants={fadeSlideUp}
-            >
-              I'm a&nbsp;
-              <span className="text-orange-400 font-semibold">MERN Stack Developer,</span>
-            </motion.h2>
+              <motion.h2
+                className="text-lg md:text-xl lg:text-2xl font-medium"
+                variants={fadeSlideUp}
+              >
+                I'm a&nbsp;
+                <span className="text-orange-400 font-semibold">
+                  MERN Stack Developer
+                </span>
+              </motion.h2>
 
-            <motion.p
-              className="text-gray-300 text-base md:text-lg leading-relaxed"
-              variants={fadeSlideUp}
-            >
-              I'm a MERN Stack Developer from Noida, Uttar Pradesh, India. I
-              specialize in building full-stack applications using MongoDB,
-              Express.js, React, and Node.js. I'm confident in connecting
-              front-end and back-end with RESTful APIs, managing state with
-              Redux, and creating secure, scalable web apps. I'm passionate
-              about cloud deployment, database design, and performance
-              optimization. Let's build something amazing together!
-            </motion.p>
+              <motion.p
+                className="text-gray-300 text-base md:text-lg leading-relaxed"
+                variants={fadeSlideUp}
+              >
+                I'm a MERN Stack Developer from Noida, India. I specialize in
+                building full-stack applications using MongoDB, Express.js,
+                React, and Node.js. I focus on REST APIs, Redux state
+                management, secure backends, and performance optimization.
+                Let's build something amazing together!
+              </motion.p>
 
-            {/* Social Links with subtle hover scale */}
-            <motion.div variants={fadeSlideUp}>
-              <SocialLinksComponents
-                className="flex gap-4"
-                style={{ cursor: "pointer" }}
-              />
-            </motion.div>
-
-            {/* Buttons with hover animations */}
-            <motion.div className="flex flex-wrap  items-center gap-4 pt-2" variants={fadeSlideUp}>
-              <motion.div whileHover={buttonHover}>
-                <ResumeDownload />
+              <motion.div variants={fadeSlideUp}>
+                <SocialLinksComponents
+                  className="flex gap-4"
+                  style={{ cursor: "pointer" }}
+                />
               </motion.div>
 
-              <motion.div whileHover={buttonHover}>
-                <Link
-                  to="/contact-us"
-                  className="px-6 py-2 rounded-md border border-orange-500 text-orange-400 hover:bg-orange-500 hover:text-white transition duration-300"
-                >
-                  Contact Me
-                </Link>
+              <motion.div
+                className="flex flex-wrap items-center gap-4 pt-2"
+                variants={fadeSlideUp}
+              >
+                <motion.div whileHover={buttonHover}>
+                  <ResumeDownload />
+                </motion.div>
+
+                <motion.div whileHover={buttonHover}>
+                  <Link
+                    to="/contact-us"
+                    className="px-6 py-2 rounded-md border border-orange-500 text-orange-400 hover:bg-orange-500 hover:text-white transition duration-300"
+                    aria-label="Contact Mohd Umar"
+                  >
+                    Contact Me
+                  </Link>
+                </motion.div>
               </motion.div>
-            </motion.div>
-          </motion.aside>
-        </motion.div>
-      </section>
-    </Container>
+            </motion.aside>
+          </motion.div>
+        </section>
+      </Container>
+    </>
   );
 };
 
