@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProjects } from "../../features/Project/projectSlice";
-import { Helmet } from "react-helmet";
+
+import { Helmet } from 'react-helmet-async';
 
 import Container from "../../components/UI/Container/Container";
 import Pagination from "../../components/UI/pagination/Pagination";

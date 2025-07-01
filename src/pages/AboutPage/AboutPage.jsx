@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import { motion } from "framer-motion";
-import { Helmet } from "react-helmet";
+
+import { Helmet } from 'react-helmet-async';
 
 import bgImage from "../../assets/bgImg.jpg";
 import Container from "../../components/UI/Container/Container";

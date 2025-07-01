@@ -3,7 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSingleProject } from "../../../features/Project/projectSlice";
 import { ChevronLeft } from "lucide-react";
-import { Helmet } from "react-helmet";
+
+import { Helmet } from 'react-helmet-async';
 import { motion } from "framer-motion";
 
 const ProjectDetails = () => {

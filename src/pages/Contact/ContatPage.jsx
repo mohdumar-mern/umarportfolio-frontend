@@ -4,7 +4,8 @@ import { Mail, Phone, User, MessageSquareText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { motion } from "framer-motion";
-import { Helmet } from "react-helmet";
+
+import { Helmet } from 'react-helmet-async';
 
 import bgImage from "../../assets/bgImg.jpg";
 

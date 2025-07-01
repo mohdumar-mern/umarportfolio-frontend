@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Helmet } from "react-helmet";
+
+import { Helmet } from 'react-helmet-async';
 import { fetchSingleContact } from "../../../features/Contact/contactSlice";
 
 const ContactDetail = () => {

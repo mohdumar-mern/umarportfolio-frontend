@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { Helmet } from "react-helmet";
+
+import { Helmet } from 'react-helmet-async';
 import {
   ArrowLeft,
   File,
@@ -17,8 +18,8 @@ import {
 import {
   fetchProfile,
   updateProfile,
-  clearError,
-  clearMessage,
+  // clearError,
+  // clearMessage,
 } from "../../../features/Profile/profileSlice";
 import Input from "../../../components/UI/Input/Input";
 
@@ -61,8 +62,8 @@ const UpdateProfile = () => {
   useEffect(() => {
     if (message || error) {
       const timeout = setTimeout(() => {
-        dispatch(clearMessage());
-        dispatch(clearError());
+        // dispatch(clearMessage());
+        // dispatch(clearError());
       }, 3000);
       return () => clearTimeout(timeout);
     }

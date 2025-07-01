@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchSkills } from "../../features/Skills/skillSlice";
 import Container from "../../components/UI/Container/Container";
 import SkillCard from "../../components/UI/card/SkillCard";
-import { Helmet } from "react-helmet";
+
+import { Helmet } from 'react-helmet-async';
 import { motion } from "framer-motion";
 
 const SkillPage = () => {

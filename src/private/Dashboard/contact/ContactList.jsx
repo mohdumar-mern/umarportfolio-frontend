@@ -2,7 +2,8 @@ import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Eye, Trash } from "lucide-react";
-import { Helmet } from "react-helmet";
+
+import { Helmet } from 'react-helmet-async';
 
 import {
   deleteContactMessage,

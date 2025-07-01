@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchServices } from "../../features/service/serviceSlice";
 import Container from "../../components/UI/Container/Container";
 import ServiceCard from "../../components/UI/card/ServiceCard";
-import { Helmet } from "react-helmet";
+
+import { Helmet } from 'react-helmet-async';
 import { motion } from "framer-motion";
 
 const ServicesPage = () => {

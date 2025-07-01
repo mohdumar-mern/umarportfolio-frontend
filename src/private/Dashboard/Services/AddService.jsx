@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft, Cog, Image } from "lucide-react";
-import { Helmet } from "react-helmet";
+
+import { Helmet } from 'react-helmet-async';
 
 import { addService } from "../../../features/service/serviceSlice";
 import Input from "../../../components/UI/Input/Input";

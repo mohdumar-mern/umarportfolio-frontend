@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 import { fetchSingleService } from "../../../features/service/serviceSlice";
-import { Helmet } from "react-helmet";
+
+import { Helmet } from 'react-helmet-async';
 
 const ServiceDetail = () => {
   const { id } = useParams();

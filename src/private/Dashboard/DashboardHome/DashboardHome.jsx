@@ -2,7 +2,8 @@ import React, { memo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserCircle, Activity, CheckCircle } from "lucide-react";
 import AvatarCard from "../../../components/UI/card/AvatarCard";
-import { Helmet } from "react-helmet";
+
+import { Helmet } from 'react-helmet-async';
 
 const DashboardCard = ({ icon: Icon, text, bg, color, onClick }) => (
   <button

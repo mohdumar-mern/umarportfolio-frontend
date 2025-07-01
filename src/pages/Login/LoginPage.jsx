@@ -3,7 +3,8 @@ import { Mail, LogIn, Lock } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { Helmet } from "react-helmet";
+
+import { Helmet } from 'react-helmet-async';
 
 import Container from "../../components/UI/Container/Container";
 import Input from "../../components/UI/Input/Input";
