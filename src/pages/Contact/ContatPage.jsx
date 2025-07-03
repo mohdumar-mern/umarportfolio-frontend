@@ -1,13 +1,10 @@
 import React, { useEffect, useState, useCallback, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Mail, Phone, User, MessageSquareText } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { motion } from "framer-motion";
-
-import { Helmet } from 'react-helmet-async';
-
-import bgImage from "../../assets/bgImg.jpg";
+import { Helmet } from "react-helmet-async";
 
 import Input from "../../components/UI/Input/Input";
 import Container from "../../components/UI/Container/Container";
@@ -20,14 +17,32 @@ import {
   clearContactStatus,
 } from "../../features/Contact/contactSlice";
 
-const initialFormState = { name: "", email: "", phone: "", message: "" };
+// 🔸 Initial form state
+const initialFormState = {
+  name: "",
+  email: "",
+  phone: "",
+  message: "",
+};
 
 const ContactPage = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const [formData, setFormData] = useState(initialFormState);
   const [formError, setFormError] = useState(null);
 
   const { error, loading, message } = useSelector((state) => state.contact);
+
+  // 🔹 Prefill message from navigation (e.g., "Hire me for this service")
+  useEffect(() => {
+    const subject = location.state?.subject;
+    if (subject) {
+      setFormData((prev) => ({
+        ...prev,
+        message: `${subject}\n\n`,
+      }));
+    }
+  }, [location.state]);
 
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
@@ -36,7 +51,8 @@ const ContactPage = () => {
   }, []);
 
   const validateForm = () => {
-    if (Object.values(formData).some((v) => !v.trim())) {
+    const { name, email, phone, message } = formData;
+    if (!name || !email || !phone || !message) {
       return "Please fill in all fields.";
     }
     return null;
@@ -87,14 +103,20 @@ const ContactPage = () => {
 
   return (
     <>
-      {/* 🔹 SEO */}
+      {/* 🔹 SEO Meta */}
       <Helmet>
         <title>Contact | Mohd Umar - MERN Stack Developer</title>
-        <meta name="description" content="Get in touch with Mohd Umar. Send your queries or project requests directly via the contact form." />
+        <meta
+          name="description"
+          content="Get in touch with Mohd Umar. Send your queries or project requests directly via the contact form."
+        />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://umarportfolio-frontend.vercel.app/contact" />
         <meta property="og:title" content="Contact Mohd Umar" />
-        <meta property="og:description" content="Reach out to Mohd Umar via email or phone. Available for freelance MERN Stack development work." />
+        <meta
+          property="og:description"
+          content="Reach out to Mohd Umar via email or phone. Available for freelance MERN Stack development work."
+        />
         <meta property="og:type" content="website" />
       </Helmet>
 
@@ -145,7 +167,10 @@ const ContactPage = () => {
               />
 
               <div>
-                <label htmlFor="message" className="block text-sm font-semibold text-[#BDC3C7] mb-2">
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-semibold text-[#BDC3C7] mb-2"
+                >
                   Message
                 </label>
                 <div className="relative">
@@ -176,8 +201,7 @@ const ContactPage = () => {
 
           {/* 📞 Info Section */}
           <motion.div
-            className="flex flex-col items-center justify-center bg-cover p-10 bg-center gap-4 relative"
-            style={{ backgroundImage: `url(${bgImage})` }}
+            className="flex flex-col items-center justify-center bg-orange-500 p-10 gap-4"
             aria-label="Contact Information Section"
             initial="hidden"
             animate="visible"
@@ -188,10 +212,16 @@ const ContactPage = () => {
 
             <div className="text-center text-white space-y-1">
               <div>
-                Phone: <a href="tel:9628787975" className="underline">9628787975</a>
+                Phone:{" "}
+                <a href="tel:9628787975" className="underline">
+                  9628787975
+                </a>
               </div>
               <div>
-                Email: <a href="mailto:uk1941404@gmail.com" className="underline">uk1941404@gmail.com</a>
+                Email:{" "}
+                <a href="mailto:uk1941404@gmail.com" className="underline">
+                  uk1941404@gmail.com
+                </a>
               </div>
             </div>
 

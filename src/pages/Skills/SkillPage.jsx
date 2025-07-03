@@ -1,18 +1,21 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchSkills } from "../../features/Skills/skillSlice";
+
 import Container from "../../components/UI/Container/Container";
 import SkillCard from "../../components/UI/card/SkillCard";
 
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 
 const SkillPage = () => {
   const dispatch = useDispatch();
-  const { skills, error, loading } = useSelector((state) => state.skill);
+  const { skills = [], error, loading } = useSelector((state) => state.skill);
 
   useEffect(() => {
-    dispatch(fetchSkills());
+    if(!skills.length){
+      dispatch(fetchSkills());
+    }
   }, [dispatch]);
 
   const containerVariants = {
@@ -28,7 +31,12 @@ const SkillPage = () => {
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20, scale: 0.95 },
-    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.3 } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { duration: 0.3 },
+    },
   };
 
   const renderSkills = () => {
@@ -49,7 +57,7 @@ const SkillPage = () => {
       );
     }
 
-    if (skills.length === 0) {
+    if (!skills.length) {
       return (
         <p className="text-white text-center col-span-full mt-8">
           No skills available at the moment.
@@ -78,6 +86,8 @@ const SkillPage = () => {
     );
   };
 
+  const skillNames = skills?.length ? skills.map((s) => s.title) : [];
+
   return (
     <>
       {/* 🔹 SEO Head */}
@@ -90,25 +100,24 @@ const SkillPage = () => {
         <meta name="robots" content="index, follow" />
         <html lang="en" />
 
-        {/* 🔸 JSON-LD Schema */}
-        <script type="application/ld+json">
-          {`
-            {
+        {skillNames.length > 0 && (
+          <script type="application/ld+json">
+            {JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Person",
-              "name": "Mohd Umar",
-              "jobTitle": "MERN Stack Developer",
-              "url": "https://umarportfolio-frontend.vercel.app",
-              "knowsAbout": ${JSON.stringify(skills.map((skill) => skill.title))}
-            }
-          `}
-        </script>
+              name: "Mohd Umar",
+              jobTitle: "MERN Stack Developer",
+              url: "https://umarportfolio-frontend.vercel.app",
+              knowsAbout: skillNames,
+            })}
+          </script>
+        )}
       </Helmet>
 
       <Container>
         <main>
           <section className="w-full min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-            {/* Header */}
+            {/* 🔸 Header */}
             <div className="text-center my-12">
               <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-2">
                 My <span className="text-orange-500">Skills</span>
@@ -118,7 +127,7 @@ const SkillPage = () => {
               </p>
             </div>
 
-            {/* Skill Cards */}
+            {/* 🔹 Skills Grid */}
             <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
               {renderSkills()}
             </div>
@@ -129,4 +138,4 @@ const SkillPage = () => {
   );
 };
 
-export default SkillPage;
+export default React.memo(SkillPage);

@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAvatar } from "../../../features/Profile/profileSlice";
-import { CloudCog } from "lucide-react";
 
 const AvatarCard = ({ size = "w-64 h-64" }) => {
   const dispatch = useDispatch();
   const { avatar, loading, error } = useSelector((state) => state.profile);
-  
 
   useEffect(() => {
     if (!avatar) {
@@ -16,7 +14,11 @@ const AvatarCard = ({ size = "w-64 h-64" }) => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center" role="status" aria-label="Loading avatar">
+      <div
+        className="flex justify-center items-center"
+        role="status"
+        aria-label="Loading avatar"
+      >
         <div
           className={`rounded-full bg-gray-300 border animate-pulse ${size} aspect-square`}
         />
@@ -36,9 +38,7 @@ const AvatarCard = ({ size = "w-64 h-64" }) => {
     );
   }
 
-  if (!avatar) {
-    return null; // avoids flicker on first render or fallback
-  }
+  if (!avatar) return null;
 
   return (
     <div className="flex justify-center items-center">
@@ -49,7 +49,8 @@ const AvatarCard = ({ size = "w-64 h-64" }) => {
           src={avatar}
           alt="User Avatar"
           loading="lazy"
-          // decoding="async"
+          decoding="async"
+          fetchpriority="high"
           className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
         />
       </div>

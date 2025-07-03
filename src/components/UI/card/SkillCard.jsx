@@ -9,6 +9,9 @@ const SkillCard = ({ title, level, imageUrl, category }) => {
           <img
             src={imageUrl}
             alt={title}
+            loading="lazy"
+            decoding="async"
+            fetchpriority="high"
             className="w-24 h-24 rounded-full object-cover border-2 border-orange-500 shadow-[0_4px_10px_rgba(249,115,22,0.4)]"
           />
         ) : (

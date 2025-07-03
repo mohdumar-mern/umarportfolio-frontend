@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProjects } from "../../features/Project/projectSlice";
 
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from "react-helmet-async";
 
 import Container from "../../components/UI/Container/Container";
 import Pagination from "../../components/UI/pagination/Pagination";
@@ -14,7 +14,7 @@ const ProjectPage = () => {
   const dispatch = useDispatch();
 
   const {
-    projects,
+    projects = [],
     loading,
     error,
     currentPage,
@@ -59,32 +59,33 @@ const ProjectPage = () => {
         <meta name="robots" content="index, follow" />
         <html lang="en" />
 
-        <script type="application/ld+json">
-          {`
-            {
+        {/* 🧠 JSON-LD Structured Data */}
+        {projects?.length > 0 && (
+          <script type="application/ld+json">
+            {JSON.stringify({
               "@context": "https://schema.org",
               "@type": "CollectionPage",
-              "name": "Projects - Mohd Umar",
-              "about": "MERN Stack Projects",
-              "author": {
+              name: "Projects - Mohd Umar",
+              about: "MERN Stack Projects",
+              author: {
                 "@type": "Person",
-                "name": "Mohd Umar",
-                "url": "https://umarportfolio-frontend.vercel.app"
+                name: "Mohd Umar",
+                url: "https://umarportfolio-frontend.vercel.app",
               },
-              "mainEntity": {
+              mainEntity: {
                 "@type": "ItemList",
-                "itemListElement": ${JSON.stringify(
-                  projects.map((proj, index) => ({
-                    "@type": "CreativeWork",
-                    "position": index + 1,
-                    "name": proj.title,
-                    "url": proj.liveDemo || "https://umarportfolio-frontend.vercel.app/projects",
-                  }))
-                )}
-              }
-            }
-          `}
-        </script>
+                itemListElement: projects.map((proj, index) => ({
+                  "@type": "CreativeWork",
+                  position: index + 1,
+                  name: proj.title,
+                  url:
+                    proj.liveDemo ||
+                    "https://umarportfolio-frontend.vercel.app/projects",
+                })),
+              },
+            })}
+          </script>
+        )}
       </Helmet>
 
       <Container>
@@ -95,7 +96,7 @@ const ProjectPage = () => {
             variants={containerVariants}
             className="w-full min-h-screen py-12"
           >
-            {/* 🔸 Header */}
+            {/* 🔸 Page Header */}
             <motion.header variants={cardVariants} className="text-center mb-10">
               <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-2">
                 My <span className="text-orange-500">Projects</span>
@@ -103,7 +104,7 @@ const ProjectPage = () => {
               <p className="text-gray-400">Some of the work I’ve done recently</p>
             </motion.header>
 
-            {/* 🔁 Loading */}
+            {/* 🔁 Loading Spinner */}
             {loading && (
               <motion.div variants={cardVariants} className="text-center mt-12">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500 mx-auto"></div>
@@ -111,15 +112,15 @@ const ProjectPage = () => {
               </motion.div>
             )}
 
-            {/* ❌ Error */}
+            {/* ❌ Error Message */}
             {error && !loading && (
               <motion.p variants={cardVariants} className="text-center text-red-500">
                 {error}
               </motion.p>
             )}
 
-            {/* ✅ Project List */}
-            {!loading && projects?.length > 0 && (
+            {/* ✅ Projects Grid */}
+            {!loading && projects.length > 0 && (
               <motion.div
                 variants={containerVariants}
                 className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
@@ -130,7 +131,7 @@ const ProjectPage = () => {
                       image={proj.file?.url}
                       title={proj.title}
                       description={proj.description}
-                      techStack={proj.techStack[0]}
+                      techStack={proj.techStack?.[0]}
                       githubLink={proj.githubLink}
                       liveDemo={proj.liveDemo}
                       createdAt={proj.createdAt}
@@ -141,8 +142,8 @@ const ProjectPage = () => {
               </motion.div>
             )}
 
-            {/* 🚫 No Projects */}
-            {!loading && projects?.length === 0 && (
+            {/* 🈳 No Projects */}
+            {!loading && projects.length === 0 && (
               <motion.p variants={cardVariants} className="text-center text-gray-400">
                 No projects found.
               </motion.p>

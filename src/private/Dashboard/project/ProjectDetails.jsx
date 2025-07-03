@@ -90,6 +90,9 @@ const ProjectDetails = () => {
           <img
             src={project.file.url}
             alt={`${project.title} preview`}
+            loading="lazy"
+            decoding="async"
+            fetchpriority="high"
             className="w-full max-w-xs rounded-lg shadow mb-6"
           />
         )}

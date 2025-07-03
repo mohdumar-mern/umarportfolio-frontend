@@ -70,6 +70,9 @@ const ServiceDetail = () => {
               <img
                 src={service.file.url}
                 alt={service.title}
+                loading="lazy"
+                decoding="async"
+                fetchpriority="high"
                 className="rounded-lg shadow-lg max-w-xs w-full"
               />
             </div>

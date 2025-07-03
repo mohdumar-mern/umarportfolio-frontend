@@ -1,42 +1,49 @@
 import React from "react";
-import { FaGithub, FaLinkedin, FaInstagram, FaYoutube } from "react-icons/fa"; // Example social icons
-import { FaSquareXTwitter } from "react-icons/fa6";
+import {
+  Github,
+  InstagramIcon,
+  LinkedinIcon,
+  TwitterIcon,
+  YoutubeIcon,
+} from "lucide-react";
 
-// This function maps platform names to their respective icons
+// Icon mapping function
 const getIcon = (platform) => {
   switch (platform) {
     case "github":
-      return <FaGithub className="mr-2 text-4xl text-[#EDEDED]" />;
+      return <Github size={30} />;
     case "linkedin":
-      return <FaLinkedin className="mr-2 text-4xl text-blue-500" />;
+      return <LinkedinIcon  size={30} color="#1f7ce0" />;
     case "twitter":
-      return <FaSquareXTwitter className="mr-2 text-4xl text-white" />;
+      return <TwitterIcon size={30} />;
     case "instagram":
-      return <FaInstagram className="mr-2 text-4xl text-pink-500" />;
+      return <InstagramIcon size={30} color="#E1306C" />;
     case "youtube":
-      return <FaYoutube className="mr-2 text-4xl text-red-600" />;
+      return <YoutubeIcon size={30} color="#FF0000" />;
     default:
       return null;
   }
 };
 
-const SocialLinksCard = ({ socialLinks, color = 'bg-transparent' }) => {
+const SocialLinksCard = ({ socialLinks, color = "bg-zinc-800/70" }) => {
   return (
-    <div className={`w-fit  p-2  rounded-lg  my-4 ${color}`}>
-      <div className="text-left flex justify-start space-y-2">
+    <div
+      className={`w-fit p-4 rounded-xl shadow-md backdrop-blur-sm ${color}`}
+    >
+      <div className="flex  gap-5">
         {Object.entries(socialLinks || {}).map(([platform, url]) => (
-          <div key={platform} className=" space-x-3 text-sm">
-            <a
-              href={url}
-              target="_blank"
-              title={platform}
-              rel="noopener noreferrer"
-              className="flex items-center text-blue-400 hover:text-blue-300 transition-colors"
-            >
-              
-              <span className="hover:scale-125 mx-2 duration-300">{getIcon(platform)}</span>
-            </a>
-          </div>
+          <a
+            key={platform}
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 text-sm text-zinc-200 hover:text-blue-400 transition-all duration-300"
+          >
+            <span className="transform hover:scale-125 duration-300">
+              {getIcon(platform)}
+            </span>
+            {/* <span className="capitalize font-medium">{platform}</span> */}
+          </a>
         ))}
       </div>
     </div>

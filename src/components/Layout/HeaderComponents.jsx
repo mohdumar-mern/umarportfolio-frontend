@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu } from "lucide-react";
 import HeaderContainer from "../UI/Container/HeaderContainer";
@@ -23,10 +23,7 @@ const HeaderComponents = () => {
       <HeaderContainer>
         <nav className="flex justify-between items-center py-3">
           {/* Logo */}
-          <NavLink
-            to="/"
-            className="text-white text-2xl font-bold tracking-wide"
-          >
+          <NavLink to="/" className="text-white text-2xl font-bold tracking-wide">
             Mohammad <span className="text-orange-500">Umar</span>
           </NavLink>
 
@@ -39,8 +36,8 @@ const HeaderComponents = () => {
                     to={item.path}
                     className={({ isActive }) =>
                       isActive
-                        ? "text-orange-500  bg-white font-medium px-4 py-2 rounded-lg"
-                        : "text-[#BDC3C7] hover:text-orange-500 transition-colors"
+                        ? "text-orange-800 bg-white font-medium px-4 py-2 rounded-lg"
+                        : "text-gray-300 hover:text-orange-500 transition-colors"
                     }
                   >
                     {item.label}
@@ -50,7 +47,7 @@ const HeaderComponents = () => {
             </ul>
             <NavLink
               to="/login"
-              className="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-lg font-semibold transition-colors duration-200"
+              className="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2 rounded-lg font-semibold transition-colors duration-200"
             >
               Login
             </NavLink>
@@ -59,6 +56,8 @@ const HeaderComponents = () => {
           {/* Mobile Nav Toggle */}
           <button
             onClick={handleToggle}
+            aria-label="Toggle navigation"
+            aria-expanded={isOpen}
             className="lg:hidden text-white focus:outline-none"
           >
             <Menu size={28} />
@@ -77,7 +76,7 @@ const HeaderComponents = () => {
                     className={({ isActive }) =>
                       isActive
                         ? "block text-orange-500 font-semibold px-2 py-2"
-                        : "block text-[#BDC3C7] hover:text-orange-500 px-2 py-2 transition-colors"
+                        : "block text-gray-300 hover:text-orange-500 px-2 py-2 transition-colors"
                     }
                   >
                     {item.label}
@@ -88,7 +87,7 @@ const HeaderComponents = () => {
                 <NavLink
                   to="/login"
                   onClick={closeMenu}
-                  className="block bg-orange-500 hover:bg-orange-600 text-white text-center px-4 py-2 rounded-lg font-semibold mt-2 transition-colors duration-200"
+                  className="block bg-orange-700 hover:bg-orange-800 text-white text-center px-4 py-2 rounded-lg font-semibold mt-2 transition-colors duration-200"
                 >
                   Login
                 </NavLink>

@@ -91,6 +91,9 @@ const ProfileDetail = () => {
                 <img
                   src={avatar.url}
                   alt="User Avatar"
+                  loading="lazy"
+                  decoding="async"
+                  fetchpriority="high"
                   className="w-32 h-32 rounded-full object-cover border border-orange-500"
                 />
               )}

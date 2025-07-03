@@ -28,16 +28,24 @@ const ResumeDownload = () => {
   return (
     <div className="text-center">
       {loading && <SkeletonBlock width="w-32" height="h-10" />}
-      {error && !loading && (
-        <p className="text-red-500 text-sm mt-2">❌ Failed to load resume</p>
+
+      {!loading && error && (
+        <p
+          className="text-red-500 text-sm mt-2"
+          role="alert"
+          aria-live="polite"
+        >
+           Failed to load resume
+        </p>
       )}
+
       {!loading && resume && (
         <button
           onClick={handleDownload}
-          className="inline-block bg-orange-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-orange-600 transition-colors duration-300 ease-in-out"
-          aria-label="View Mohd Umar Resume"
+          className="inline-block bg-orange-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-orange-600 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-orange-400"
+          aria-label="View or download resume"
         >
-          Resume
+          View Resume
         </button>
       )}
     </div>

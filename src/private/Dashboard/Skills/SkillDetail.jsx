@@ -52,6 +52,9 @@ const SkillDetail = () => {
               <img
                 src={skill.file.url}
                 alt={skill.title || "Skill"}
+                loading="lazy"
+                decoding="async"
+                fetchpriority="high"
                 className="w-64 h-auto object-cover "
               />
             </div>

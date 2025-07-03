@@ -1,24 +1,20 @@
 import React, { useMemo } from "react";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 
-import { Helmet } from 'react-helmet-async';
-
-import bgImage from "../../assets/bgImg.jpg";
 import Container from "../../components/UI/Container/Container";
 import AvatarCard from "../../components/UI/card/AvatarCard";
 
 const AboutPage = () => {
   const skills = useMemo(
-    () => ["JavaScript", "React", "Node.js", "Git", "NPM", "Express", "MongoDB"],
+    () => ["JavaScript", "React", "Node.js", "Git", "NPM", "Express", "MongoDB", "Docker", "Redis"],
     []
   );
 
   const containerVariants = {
     hidden: {},
     visible: {
-      transition: {
-        staggerChildren: 0.15,
-      },
+      transition: { staggerChildren: 0.15 },
     },
   };
 
@@ -31,13 +27,9 @@ const AboutPage = () => {
     },
   };
 
-  const avatarVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.8, ease: "easeOut" },
-    },
+  const avatarHover = {
+    scale: 1.05,
+    transition: { duration: 0.5, yoyo: Infinity, ease: "easeInOut" },
   };
 
   return (
@@ -51,7 +43,6 @@ const AboutPage = () => {
         />
         <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <html lang="en" />
 
         {/* Optional: Structured Data */}
         <script type="application/ld+json">
@@ -80,7 +71,7 @@ const AboutPage = () => {
 
       <Container>
         <section className="grid grid-cols-1 lg:grid-cols-2 min-h-[80vh] w-full shadow-2xl rounded-xl overflow-hidden">
-          {/* 🔹 Left: Text Section */}
+          {/* 🔹 Left: About Text */}
           <motion.div
             className="flex items-center justify-center bg-black px-6 lg:px-12 py-12"
             initial="hidden"
@@ -101,7 +92,7 @@ const AboutPage = () => {
               >
                 I'm a{" "}
                 <span className="text-orange-400 font-semibold">
-                  MERN Stack Developer,
+                  MERN Stack Developer
                 </span>
               </motion.h2>
 
@@ -123,7 +114,6 @@ const AboutPage = () => {
                 scalable, and responsive web apps.
               </motion.p>
 
-              {/* 🔘 Skills */}
               <div>
                 <motion.h3
                   className="text-white text-2xl font-semibold mb-2"
@@ -152,16 +142,20 @@ const AboutPage = () => {
             </aside>
           </motion.div>
 
-          {/* 🔸 Right: Avatar Section */}
+          {/* 🔸 Right: Avatar with BG Image */}
           <motion.div
-            className="flex items-center justify-center bg-cover bg-center p-10 relative"
-            style={{ backgroundImage: `url(${bgImage})` }}
-            aria-label="background section"
-            initial="hidden"
-            animate="visible"
-            variants={avatarVariants}
+            className="flex items-center justify-center bg-orange-500 p-10 relative"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.2 }}
           >
-            <AvatarCard />
+            <motion.div
+              whileHover={avatarHover}
+              initial={{ scale: 1 }}
+              animate={{ scale: 1 }}
+            >
+              <AvatarCard />
+            </motion.div>
           </motion.div>
         </section>
       </Container>

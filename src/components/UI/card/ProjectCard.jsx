@@ -28,6 +28,8 @@ const ProjectCard = ({
         alt={title}
         className="w-full  h-52 object-cover p-4 rounded-t-2xl transition-transform duration-300 hover:scale-105"
         loading="lazy"
+          decoding="async"
+          fetchpriority="high"
       />
 
       {/* Content */}

@@ -1,10 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 
-import { Helmet } from 'react-helmet-async';
-
-import bgImage from "../../assets/bgImg.jpg";
 import Container from "../../components/UI/Container/Container";
 import AvatarCard from "../../components/UI/card/AvatarCard";
 import ResumeDownload from "../../components/UI/card/ResumeDownload";
@@ -32,7 +30,6 @@ const buttonHover = {
 
 const avatarHover = {
   scale: 1.05,
-  boxShadow: "0 0 20px rgb(255, 140, 0)",
   transition: { duration: 0.5, yoyo: Infinity, ease: "easeInOut" },
 };
 
@@ -48,19 +45,43 @@ const Home = () => {
         />
         <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <html lang="en" />
 
-        {/* Optional: Structured Data */}
+        {/* 🔹 Open Graph (Social Share) */}
+        <meta property="og:title" content="Mohd Umar | MERN Stack Developer Portfolio" />
+        <meta
+          property="og:description"
+          content="Full-stack developer from Noida, India specializing in MERN stack apps."
+        />
+        <meta
+          property="og:image"
+          content="https://umarportfolio-frontend.vercel.app/banner.png"
+        />
+        <meta property="og:url" content="https://umarportfolio-frontend.vercel.app/" />
+        <meta property="og:type" content="website" />
+
+        {/* 🔹 Twitter Cards */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Mohd Umar | MERN Stack Developer Portfolio" />
+        <meta
+          name="twitter:description"
+          content="Explore the portfolio of Mohd Umar, a React and Node.js developer from Noida."
+        />
+        <meta
+          name="twitter:image"
+          content="https://umarportfolio-frontend.vercel.app/banner.png"
+        />
+
+        {/* 🔹 Structured Data */}
         <script type="application/ld+json">
           {`
             {
               "@context": "https://schema.org",
               "@type": "Person",
               "name": "Mohd Umar",
-              "url": "https://umarportfolio-frontend.vercel.app",
+              "url": "https://umarportfolio.vercel.app",
               "sameAs": [
-                "https://github.com/yourusername",
-                "https://linkedin.com/in/yourprofile"
+                "https://github.com/mohdumar-mern",
+                "https://linkedin.com/in/mohd-umar-mern-stack-developer"
               ],
               "jobTitle": "MERN Stack Developer",
               "address": {
@@ -76,11 +97,9 @@ const Home = () => {
 
       <Container>
         <section className="grid grid-cols-1 lg:grid-cols-2 min-h-[80vh] w-full shadow-2xl rounded-xl overflow-hidden">
-          {/* 🔹 Left: Avatar Card with background */}
+          {/* 🔹 Left: Avatar Card */}
           <motion.div
-            className="flex items-center justify-center bg-cover p-10 bg-center relative"
-            style={{ backgroundImage: `url(${bgImage})` }}
-            aria-label="background section"
+            className="flex items-center justify-center bg-orange-500 p-10 relative"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.2 }}
@@ -94,7 +113,7 @@ const Home = () => {
             </motion.div>
           </motion.div>
 
-          {/* 🔸 Right: Text and buttons */}
+          {/* 🔸 Right: Content Section */}
           <motion.div
             className="flex items-center justify-center bg-black px-6 lg:px-12 py-12"
             variants={containerVariants}

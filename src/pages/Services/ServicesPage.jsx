@@ -4,7 +4,7 @@ import { fetchServices } from "../../features/service/serviceSlice";
 import Container from "../../components/UI/Container/Container";
 import ServiceCard from "../../components/UI/card/ServiceCard";
 
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 
 const ServicesPage = () => {
@@ -36,7 +36,6 @@ const ServicesPage = () => {
 
   return (
     <>
-      {/* 🔹 SEO Meta Tags */}
       <Helmet>
         <title>Services | Mohd Umar - MERN Stack Developer</title>
         <meta
@@ -45,40 +44,6 @@ const ServicesPage = () => {
         />
         <meta name="robots" content="index, follow" />
         <html lang="en" />
-
-        {/* 🔸 Structured Data */}
-        <script type="application/ld+json">
-          {`
-            {
-              "@context": "https://schema.org",
-              "@type": "Service",
-              "provider": {
-                "@type": "Person",
-                "name": "Mohd Umar",
-                "url": "https://umarportfolio-frontend.vercel.app"
-              },
-              "serviceType": "Web Development",
-              "areaServed": {
-                "@type": "Place",
-                "name": "India"
-              },
-              "hasOfferCatalog": {
-                "@type": "OfferCatalog",
-                "name": "Web Services",
-                "itemListElement": ${JSON.stringify(
-                  services.map((service) => ({
-                    "@type": "Offer",
-                    "itemOffered": {
-                      "@type": "Service",
-                      "name": service.title,
-                      "description": service.description
-                    }
-                  }))
-                )}
-              }
-            }
-          `}
-        </script>
       </Helmet>
 
       <Container>
@@ -89,7 +54,7 @@ const ServicesPage = () => {
             variants={containerVariants}
             className="w-full min-h-screen py-12 px-4 sm:px-6 lg:px-8"
           >
-            {/* 🔸 Header */}
+            {/* 🔸 Page Header */}
             <motion.header variants={cardVariants} className="text-center my-12">
               <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-2">
                 My <span className="text-orange-500">Services</span>
@@ -112,7 +77,7 @@ const ServicesPage = () => {
             {/* ✅ Services Grid */}
             <motion.div
               variants={containerVariants}
-              className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+              className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 "
             >
               {!loading && services.length > 0 ? (
                 services.map((service) => (
