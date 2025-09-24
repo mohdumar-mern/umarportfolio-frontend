@@ -1,44 +1,44 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAvatar } from "../../../features/Profile/profileSlice";
+
+import React from "react";
+import avatar from "../../../assets/avatar.jpeg";
 
 const AvatarCard = ({ size = "w-64 h-64" }) => {
-  const dispatch = useDispatch();
-  const { avatar, loading, error } = useSelector((state) => state.profile);
+  // const dispatch = useDispatch();
+  // const { avatar, loading, error } = useSelector((state) => state.profile);
 
-  useEffect(() => {
-    if (!avatar) {
-      dispatch(fetchAvatar());
-    }
-  }, [dispatch, avatar]);
+  // useEffect(() => {
+  //   if (!avatar) {
+  //     dispatch(fetchAvatar());
+  //   }
+  // }, [dispatch, avatar]);
 
-  if (loading) {
-    return (
-      <div
-        className="flex justify-center items-center"
-        role="status"
-        aria-label="Loading avatar"
-      >
-        <div
-          className={`rounded-full bg-gray-300 border animate-pulse ${size} aspect-square`}
-        />
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div
+  //       className="flex justify-center items-center"
+  //       role="status"
+  //       aria-label="Loading avatar"
+  //     >
+  //       <div
+  //         className={`rounded-full bg-gray-300 border animate-pulse ${size} aspect-square`}
+  //       />
+  //     </div>
+  //   );
+  // }
 
-  if (error) {
-    return (
-      <div
-        className="flex justify-center items-center text-red-500"
-        role="alert"
-        aria-label="Avatar load error"
-      >
-        Failed to load avatar.
-      </div>
-    );
-  }
+  // if (error) {
+  //   return (
+  //     <div
+  //       className="flex justify-center items-center text-red-500"
+  //       role="alert"
+  //       aria-label="Avatar load error"
+  //     >
+  //       Failed to load avatar.
+  //     </div>
+  //   );
+  // }
 
-  if (!avatar) return null;
+  // if (!avatar) return null;
 
   return (
     <div className="flex justify-center items-center">
