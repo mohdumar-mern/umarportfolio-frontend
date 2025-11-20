@@ -149,13 +149,13 @@ const AboutPage = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 1.2 }}
           >
-            <motion.div
+            {/* <motion.div
               whileHover={avatarHover}
               initial={{ scale: 1 }}
               animate={{ scale: 1 }}
-            >
+            > */}
               <AvatarCard size = "w-80 h-80" />
-            </motion.div>
+            {/* </motion.div> */}
           </motion.div>
         </section>
       </Container>

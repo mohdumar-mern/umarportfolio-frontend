@@ -104,14 +104,14 @@ const Home = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 1.2 }}
           >
-            <motion.div
-              whileHover={avatarHover}
+            {/* <motion.div
+              // whileHover={avatarHover}
               initial={{ scale: 1 }}
               animate={{ scale: 1 }}
-            >
+            > */}
               <AvatarCard size="w-96 h-96" />
 
-            </motion.div>
+            {/* </motion.div> */}
           </motion.div>
 
           {/* 🔸 Right: Content Section */}
