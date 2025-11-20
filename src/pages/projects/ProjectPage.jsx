@@ -128,7 +128,7 @@ const ProjectPage = () => {
                 {projects.map((proj) => (
                   <motion.div key={proj._id} variants={cardVariants}>
                     <ProjectCard
-                      image={proj.file?.url}
+                      image={proj.imageUrl}
                       title={proj.title}
                       description={proj.description}
                       techStack={proj.techStack?.[0]}

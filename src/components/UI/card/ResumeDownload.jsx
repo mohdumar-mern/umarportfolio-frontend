@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import resume from "../../../assets/resume.pdf";
-// import { useDispatch, useSelector } from "react-redux";
-// import { fetchResume } from "../../../features/Profile/profileSlice";
+
 
 // 🔧 Skeleton Block UI
 const SkeletonBlock = ({ width = "w-full", height = "h-4" }) => (
@@ -9,14 +8,6 @@ const SkeletonBlock = ({ width = "w-full", height = "h-4" }) => (
 );
 
 const ResumeDownload = () => {
-  // const dispatch = useDispatch();
-  // const { resume, error, loading } = useSelector((state) => state.profile);
-
-  // useEffect(() => {
-  //   if (!resume) {
-  //     dispatch(fetchResume());
-  //   }
-  // }, [dispatch, resume]);
 
   const handleDownload = () => {
     if (resume) {

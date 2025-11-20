@@ -11,6 +11,7 @@ const ServicesPage = () => {
   const dispatch = useDispatch();
   const { services, error, loading } = useSelector((state) => state.service);
 
+
   useEffect(() => {
     dispatch(fetchServices());
   }, [dispatch]);
@@ -64,7 +65,7 @@ const ServicesPage = () => {
               </p>
             </motion.header>
 
-            {/* ❌ Error */}
+            {/*  Error */}
             {error && (
               <motion.p
                 variants={cardVariants}
@@ -74,7 +75,7 @@ const ServicesPage = () => {
               </motion.p>
             )}
 
-            {/* ✅ Services Grid */}
+            {/*  Services Grid */}
             <motion.div
               variants={containerVariants}
               className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 "

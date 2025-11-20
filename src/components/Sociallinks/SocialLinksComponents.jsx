@@ -13,8 +13,7 @@ const SkeletonCircle = ({ className = "" }) => (
 
 const SocialLinksComponents = ({ color }) => {
   const dispatch = useDispatch();
-  const { socialLinks, loading, error } = useSelector((state) => state.profile);
-  console.log(socialLinks)
+  const { socialLinks, loading } = useSelector((state) => state.profile);
 
   useEffect(() => {
     if (!socialLinks) {
@@ -31,18 +30,6 @@ const SocialLinksComponents = ({ color }) => {
       </div>
     );
   }
-
-  // if (error) {
-  //   return (
-  //     <div
-  //       className="text-center text-red-500 mt-4"
-  //       role="alert"
-  //       aria-live="polite"
-  //     >
-  //       Failed to load social links.
-  //     </div>
-  //   );
-  // }
 
   if (!socialLinks || Object.keys(socialLinks).length === 0) {
     return (

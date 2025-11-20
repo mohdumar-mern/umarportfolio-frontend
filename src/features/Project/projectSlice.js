@@ -40,6 +40,7 @@ export const addProject = createAsyncThunk(
       const response = await axios.post(`${API_URL}projects/add`, projectData, {
         headers: getAuthHeaders(),
       });
+      console.log(response)
       return response.data;
     } catch (error) {
       return rejectWithValue(error?.response?.data?.message || error.message);

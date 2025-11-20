@@ -109,7 +109,8 @@ const Home = () => {
               initial={{ scale: 1 }}
               animate={{ scale: 1 }}
             >
-              <AvatarCard />
+              <AvatarCard size="w-96 h-96" />
+
             </motion.div>
           </motion.div>
 

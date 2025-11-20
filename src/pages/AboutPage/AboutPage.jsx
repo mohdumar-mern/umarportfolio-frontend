@@ -154,7 +154,7 @@ const AboutPage = () => {
               initial={{ scale: 1 }}
               animate={{ scale: 1 }}
             >
-              <AvatarCard />
+              <AvatarCard size = "w-80 h-80" />
             </motion.div>
           </motion.div>
         </section>

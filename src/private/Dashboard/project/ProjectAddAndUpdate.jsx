@@ -36,7 +36,7 @@ const ProjectAddUpdate = () => {
     techStack: "",
     githubLink: "",
     liveDemo: "",
-    file: null,
+    imageUrl: "",
   });
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const ProjectAddUpdate = () => {
         techStack: existingProject.techStack || "",
         githubLink: existingProject.githubLink || "",
         liveDemo: existingProject.liveDemo || "",
-        file: null, // for preview only if needed
+        imageUrl: existingProject.imageUrl || ""
       });
     }
   }, [isEditing, existingProject]);
@@ -67,9 +67,9 @@ const ProjectAddUpdate = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   }, []);
 
-  const handleFileChange = useCallback((e) => {
-    setFormData((prev) => ({ ...prev, file: e.target.files[0] }));
-  }, []);
+  // const handleFileChange = useCallback((e) => {
+  //   setFormData((prev) => ({ ...prev, file: e.target.files[0] }));
+  // }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -174,13 +174,13 @@ const ProjectAddUpdate = () => {
         })}
 
         {renderInput({
-          label: "Project Image",
-          type: "file",
-          name: "file",
-          accept: "image/*",
-          onChange: handleFileChange,
-          icon: Image,
-          required: !isEditing,
+          label: "Project Image Url",
+          type: "text",
+          name: "imageUrl",
+          placeholder: "Enter project image url",
+          value: formData.imageUrl,
+          onChange: handleChange,
+          icon: Link,
         })}
 
         <div className="text-center pt-4">
